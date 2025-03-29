@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     button.addEventListener("click", () => {
         const tamaño = parseInt(tamañoCasillas.value);
         hacerTablero(tamaño);
+        let miArray = crearArray(tamaño);
+        console.log(miArray)
     }); 
 });
 
@@ -19,4 +21,13 @@ function hacerTablero(tamaño) {
         casilla.classList.add("casilla");
         tablero.appendChild(casilla);
     }
+}
+
+function crearArray(tamaño) {
+    let arrayList = [];
+    for (let i = 0; i < tamaño; i++) {
+        let fila = new Array(tamaño).fill("a");
+        arrayList.push(fila)
+    }
+    return arrayList
 }
