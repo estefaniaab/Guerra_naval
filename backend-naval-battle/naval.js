@@ -8,3 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
         hacerTablero(tamaño);
     }); 
 });
+
+function hacerTablero(tamaño) {
+    const tablero = document.getElementById("tablero");
+    tablero.innerHTML="";
+    tablero.style.setProperty("--grid-tamaño", tamaño);
+
+    for (let i = 0; i < tamaño * tamaño; i++) {
+        const casilla = document.createElement("div");
+        casilla.classList.add("casilla");
+        tablero.appendChild(casilla);
+    }
+}
