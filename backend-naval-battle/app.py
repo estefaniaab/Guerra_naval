@@ -3,16 +3,18 @@ from flask_cors import CORS
 import json
 import os
 
+
 app = Flask(__name__)
 CORS(app)
 
-DB_FILE = "database/scores.json"
-COUNTRY_FILE = "database/countries.json"
+DB_FILE = "backend-naval-battle/database/scores.json"
+COUNTRY_FILE = "backend-naval-battle/database/countries.json"
 
 def load_countries():
     if os.path.exists(COUNTRY_FILE):
         with open(COUNTRY_FILE, "r", encoding="utf-8") as file:
-            return json.load(file)
+            data = json.load(file)
+            return data
     return []
 
 def load_scores():
