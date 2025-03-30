@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 countries.innerHTML += selector
             })
         })
-        .catch(error => console.error("Error al obtener los paises: ", error))
+        .catch(error => console.error(  "Error al obtener los paises: ", error))
     }
 
     function changePage() {
@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", function() {
             window.location.href = "naval.html"
         });
     }
-    
+
     //Llamado a la función
-    changePage()
     listarPaises()
+    changePage()
 })
