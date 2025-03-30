@@ -19,14 +19,17 @@ document.addEventListener("DOMContentLoaded", function() {
             })
         })
         .catch(error => console.error("Error al obtener los paises: ", error))
+    }
 
+    function changePage() {
         //Le damos la funcion a un boton para entrar a otra pagina html
         cambioPagina.addEventListener("click", function(event) {
             event.preventDefault();
             window.location.href = "naval.html"
         });
-        
     }
+    
     //Llamado a la función
+    changePage()
     listarPaises()
 })
