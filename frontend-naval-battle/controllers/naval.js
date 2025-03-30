@@ -6,10 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
     //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
     button.addEventListener("click", () => {
         const tamaño = parseInt(tamañoCasillas.value);
-        hacerTablero(tamaño);
-        let miArray = crearArray(tamaño);
-        console.log(miArray)
-    }); 
+        if (tamaño >= 10 && tamaño <= 20) {
+            hacerTablero(tamaño);
+            let miArray = crearArray(tamaño);
+            console.log(miArray);
+        } else {
+            alert("El tamaño debe estar entre 10 y 20.");
+        }
+    });
 });
 
 //limpiamos el tablero y agregamos las casillas de acuerdo al tamaño escogido
