@@ -10,5 +10,9 @@
     "estefania": {
         "score": 20,
         "country_code": "co"
+    },
+    "Juan": {
+        "score": 20,
+        "country_code": "fo"
     }
 }
