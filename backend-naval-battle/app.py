@@ -13,8 +13,7 @@ COUNTRY_FILE = "backend-naval-battle/database/countries.json"
 def load_countries():
     if os.path.exists(COUNTRY_FILE):
         with open(COUNTRY_FILE, "r", encoding="utf-8") as file:
-            data = json.load(file)
-            return data
+            return json.load(file)            
     return []
 
 def load_scores():
