@@ -22,18 +22,20 @@ function hacerTablero(tamaño) {
     tablero.innerHTML="";
     tablero.style.setProperty("--grid-tamaño", tamaño);
 
-    for (let i = 0; i < tamaño * tamaño; i++) {
-        const casilla = document.createElement("div");
-        casilla.classList.add("casilla");
-        tablero.appendChild(casilla);
+    for (let i = 0; i < tamaño; i++) { 
+        for (let j = 0; j < tamaño; j++) { 
+            const casilla = document.createElement("div");
+            casilla.classList.add("casilla");
+            tablero.appendChild(casilla);
+        }
     }
 }
 //creamos una lista de acuerdo al tamaño del tablero y la llenamos con agua osea "a"
 function crearArray(tamaño) {
     let arrayList = [];
     for (let i = 0; i < tamaño; i++) {
-        let fila = new Array(tamaño).fill("a");
-        arrayList.push(fila)
+        let subArray = new Array(tamaño).fill("a");
+        arrayList.push(subArray)
     }
     return arrayList
 }
