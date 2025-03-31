@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", function() {
     let countries = document.getElementById("paises") // Accedemos a la componente del html
     let cambioPagina = document.getElementById("cambioPagina"); //Accedemos al id de cambio de pagina
+    let cambioRanking = document.getElementById("cambioRanking")
 
     function listarPaises() {
         fetch("http://127.0.0.1:5000/countries" , {  // Se carga desde el backend
-            method: "GET",
+            method: "GET", // El metodo que se pide desde el backend
             headers: { "Content-Type": "application/json"}
         })
         .then(response => response.json()) // Se convierte JSON
@@ -27,9 +28,15 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             window.location.href = "naval.html"
         });
+        cambioRanking.addEventListener("click", function(event) {
+            event.preventDefault();
+            window.location.href = "ranking.html"
+        });
     }
 
     //Llamado a la función
     listarPaises()
+
+    // HACER VERIFICACIÓN DE QUE SI MANDO LA INFORMACIÓN PARA DEJARLO PASAR DE PAGINA
     changePage()
 })

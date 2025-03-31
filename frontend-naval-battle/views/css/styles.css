@@ -10,3 +10,8 @@ body {
     height: 100vh;
     margin: 0;
 }
+
+
+.title, .form-label {
+    color: white;
+}
