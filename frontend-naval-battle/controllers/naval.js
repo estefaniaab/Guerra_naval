@@ -1,8 +1,13 @@
+// Importaciones
+import { getWeather } from "../utils/helpers.js"; // Importamos la función de sacar el clima de helpers
+
 //se obtienen los diferentes elementos
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const button = document.getElementById("generarBoton");
     const tamañoCasillas = document.getElementById("tamañoCasillas");
     const tablero = document.getElementById("tablero")
+    const clima = document.getElementById("clima")
+
     //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
     button.addEventListener("click", () => {
         const tamaño = parseInt(tamañoCasillas.value);
@@ -14,6 +19,24 @@ document.addEventListener("DOMContentLoaded", () => {
             alert("El tamaño debe estar entre 10 y 20.");
         }
     });
+
+    // Intentamos cargar la información del clima
+    try {
+        const data = await getWeather()
+        clima.innerHTML = '' // Lo vaciamos primero para que no hay nada repetido
+        clima.innerHTML += `<p> Ciudad: ${data.city} </p> 
+                            <br>
+                            <p> Temperatura: ${data.tempCelsius}°C
+                            <br>
+                            <p> Humedad: ${data.humidity}%
+                            <br>
+                            <p> Viento: ${data.windSpeed} m/s
+                            <br>
+                            <p> Clima: ${data.climaDesc}
+                            <img src="${data.iconUrl}" style="display: block"></img>`
+    } catch(error) {
+        console.error("Error al obtener el clima: ", error)
+    }
 });
 
 //limpiamos el tablero y agregamos las casillas de acuerdo al tamaño escogido
