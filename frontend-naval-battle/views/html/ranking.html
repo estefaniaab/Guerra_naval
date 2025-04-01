@@ -9,19 +9,22 @@
 <body>
     <div class="container mt-5">
         <h2 class="text-center">🏆 Ranking de Jugadores</h2>
-        <table class="table table-striped table-bordered mt-3">
-            <thead class="table-dark">
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Puntos</th>
-                    <th>Pais</th>
-                </tr>
-            </thead>
-            <tbody id="ranking-body">
-                <tr><td colspan="4" class="text-center">Cargando...</td></tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered mt-3">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Puntos</th>
+                        <th>Pais</th>
+                    </tr>
+                </thead>
+                <tbody id="ranking-body">
+                    <tr><td colspan="4" class="text-center">Cargando...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 
     <script src="/frontend-naval-battle/controllers/rankin.js"></script>
