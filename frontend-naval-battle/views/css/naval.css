@@ -56,3 +56,46 @@
     border: 2px solid black;
     padding: 50px;
 }
+
+
+/* PARTES DEL CLIMA */
+.clima-titulo {
+    background-color: #9fc2e7; /* Fondo azul para el título */
+    color: rgb(255, 255, 255);
+    padding: 4px 8px;
+    border-radius: 8px 8px 0 0; /* Bordes redondeados arriba */
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1px;
+    width: 169px;
+    margin-left: auto; /* Centrado automático */
+    margin-right: auto;
+}
+#clima {
+    background-color: #ffffff; /* Fondo suave */
+    border-radius: 0 0 8px 8px;
+    padding: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: fit-content; /* El ancho se ajusta al contenido */
+    margin-left: auto; /* Centrado automático */
+    margin-right: auto;
+}
+
+
+#clima p {
+    font-size: 1rem;
+    color: #555;
+    margin: 2px 0;
+}
+
+#clima img {
+    width: 50px;
+    height: 50px;
+    margin-top: 8px;
+}
+
+#clima .info {
+    color: #333;
+    font-weight: bold;
+}

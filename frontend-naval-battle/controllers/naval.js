@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const button = document.getElementById("generarBoton");
     const tamañoCasillas = document.getElementById("tamañoCasillas");
     const tablero = document.getElementById("tablero")
-    const clima = document.getElementById("clima")
 
     //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
     button.addEventListener("click", () => {
@@ -23,17 +22,48 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Intentamos cargar la información del clima
     try {
         const data = await getWeather()
-        clima.innerHTML = '' // Lo vaciamos primero para que no hay nada repetido
-        clima.innerHTML += `<p> Ciudad: ${data.city} </p> 
-                            <br>
-                            <p> Temperatura: ${data.tempCelsius}°C
-                            <br>
-                            <p> Humedad: ${data.humidity}%
-                            <br>
-                            <p> Viento: ${data.windSpeed} m/s
-                            <br>
-                            <p> Clima: ${data.climaDesc}
-                            <img src="${data.iconUrl}" style="display: block"></img>`
+        const climaElement = document.getElementById("clima");
+    
+        // Limpiamos cualquier contenido previo
+        climaElement.innerHTML = '';
+    
+        // Crear un contenedor para los datos del clima
+        const weatherInfo = document.createElement('div');
+        weatherInfo.classList.add('weather-info');
+    
+        // Título (Ciudad)
+        const cityElement = document.createElement('p');
+        cityElement.textContent = `Ciudad: ${data.city}`;
+        weatherInfo.appendChild(cityElement);
+    
+        // Temperatura
+        const tempElement = document.createElement('p');
+        tempElement.textContent = `Temperatura: ${data.tempCelsius}°C`;
+        weatherInfo.appendChild(tempElement);
+    
+        // Humedad
+        const humidityElement = document.createElement('p');
+        humidityElement.textContent = `Humedad: ${data.humidity}%`;
+        weatherInfo.appendChild(humidityElement);
+    
+        // Velocidad del viento
+        const windSpeedElement = document.createElement('p');
+        windSpeedElement.textContent = `Viento: ${data.windSpeed} m/s`;
+        weatherInfo.appendChild(windSpeedElement);
+    
+        // Descripción del clima
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = `Clima: ${data.climaDesc}`;
+        weatherInfo.appendChild(descriptionElement);
+    
+        // Icono del clima
+        const weatherIconElement = document.createElement('img');
+        weatherIconElement.src = data.iconUrl;
+        weatherIconElement.alt = 'Clima';
+        weatherInfo.appendChild(weatherIconElement);
+    
+        // Agregar todo al contenedor de clima
+        climaElement.appendChild(weatherInfo);
     } catch(error) {
         console.error("Error al obtener el clima: ", error)
     }
