@@ -4,7 +4,7 @@ import { User } from "../models/user.js"
 document.addEventListener("DOMContentLoaded", function() {
     let countries = document.getElementById("paises") // Accedemos a la componente del html
     let cambioPagina = document.getElementById("cambioPagina"); //Accedemos al id de cambio de pagina
-    let cambioRanking = document.getElementById("cambioRanking")
+    let cambioRanking = document.getElementById("cambioRanking") 
 
 
     /**
@@ -34,51 +34,51 @@ document.addEventListener("DOMContentLoaded", function() {
      */
     function changePage() {
         //Le damos la funcion a un boton para entrar a otra pagina html
-        cambioPagina.addEventListener("click", function(event) {
+        cambioPagina.addEventListener("click", function(event) { // Volvemos la función asincrona para que espere el resultado de verificacionCambioPagina
             event.preventDefault()
-            // Llamamos verificaciones antes del cambio de pagina
-            if (verificacionCambioPagina()) {
-                window.location.href = "naval.html"
-            }            
+            // Llamamos verificaciones y le mandamos la nueva pagina target, en este caso, naval.html
+            verificacionCambioPagina("naval.html")
+            
         })
-        cambioRanking.addEventListener("click", function(event) {
+        cambioRanking.addEventListener("click", async function(event) {
             event.preventDefault()
             // Llamamos verificaciones antes del cambio de pagina
-            if (verificacionCambioPagina()) {
-                window.location.href = "ranking.html"
-            }
-            console.log("No se pudo el cambio de pagina porque no lleno bien la información")
+            verificacionCambioPagina("ranking.html")
         })
     }
-    /** Función para verificar el cambio de pagina y crear el usuario.
+    /** Función para verificar el cambio de pagina y crear el usuario. Es asincrona porque tiene que esperar que se cree el usuario desde el backend para continuar
+     * 
+     * @param {*} target Es la pagina a la que va a hacerse el cambio
      * 
      * @returns Verdadero si se pudo cumplir con los requisitos minimos para crear usuario y si no hubo problema, false si hubo algún fallo
      */
-    function verificacionCambioPagina() {
+    async function verificacionCambioPagina(target) {
         const nickname = document.getElementById("nickname").value // Se saca el valor del html
         const pais = countries.value // Se saca el valor del selector del pais
         
         // Validar campos
-        if (!nickname || !pais || pais === "placeholder") { // Si no hay nombre o no hay pais o no ha seleccionado pais
+        if (nickname === "" || !pais || pais === "placeholder") { // Si no hay nombre o no hay pais o no ha seleccionado pais
             alert("Debes ingresar un nickname y seleccionar un pais!")
+            console.log(`Nickname seleccionado: ${nickname}, Pais seleccionado: ${pais}`)
             return false //Retorna falso para no crear usuario y no permitir cambiar de pagina
         }
-        if (nickname.lenght < 3 || nickname.lenght > 10) {
+        // Si el tamaño no esta dentro de un rango
+        if (nickname.length < 3 || nickname.length > 10) {
             alert("El nickname de Usuario debe ser almenos de 3 caracteres y menor a 10")
+            console.log(`Nickname seleccionado: ${nickname}`)
             return false 
         }
-        
-        // Creación de usuario
         try {
-            createUser(nickname, 0, pais) // Score inicializa siempre en 0
-            localStorage.setItem("currentUser", nickname) // Para guardar el usuario en el storage IMPORTANTE SIRVE PARA NAVAL 
-            alert("Usuario creado exitosamente")
-            // Retorna true si si funciona
-            return true
+            // Creación de usuario
+            const success = await createUser(nickname, 0, pais) // Score inicializa siempre en 0
+            if (success) { // Si se pudo crear el usuario
+                localStorage.setItem("currentUser", nickname) // Guardamos en localStorage, que puede servir despues para naval
+                window.location.href = target //Redireccionamos a la pagina target
+            } else {
+                alert("Error al guardar el usuario, intente nuevamente.")
+            }
         } catch (error) {
-            console.log(error)
-            alert("Error al guardar el usuario, intentar nuevamente porfavor")
-            return false
+            console.error("Error: ", error)
         }
     }
 
@@ -87,19 +87,28 @@ document.addEventListener("DOMContentLoaded", function() {
      * @param {*} nickname El nickname del usuario
      * @param {*} score El score que va a tener el usuario
      * @param {*} pais El valor asociado al pais para el usuario
+     * 
+     * @returns retorna una promesa, la de la creación del usuario, si no funciona, simplemente dice que hubo error en la creación de usuario
      */
-    function createUser(nickname, score, pais) {
+    async function createUser(nickname, score, pais) {
         // Se crea un nuevo objeto User
         const usuarioNuevo = new User(nickname, score, pais)
 
         // Fetch para el backend
-        fetch("http://127.0.0.1:5000/score-recorder", {
+        try {
+        const response = await fetch("http://127.0.0.1:5000/score-recorder", {
             method: "POST", // El metodo que se pide desde el backend
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(usuarioNuevo.toBackendFormat()) // Se manda la información en string de la función toBackendFormat()
         })
-        .catch( error => console.error("Error al subir datos del usuario: ", error))
-    }
+
+            return response.ok
+
+        } catch (error) {
+            console.error("Error en createUser", error)
+            return false
+        }
+    } 
 
     //Llamado a la función
     listarPaises()
