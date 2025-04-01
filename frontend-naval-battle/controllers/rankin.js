@@ -18,12 +18,15 @@ async function cargarRanking() {
         rankingBody.innerHTML = ""; // Limpiar la tabla antes de agregar datos nuevos
 
         if (!Array.isArray(rankingData) || rankingData.length === 0) {
-            rankingBody.innerHTML = "<tr><td colspan='4' class='text-center'>No hay datos disponibles</td></tr>";
+            rankingBody.innerHTML = "<tr><td colspan='5' class='text-center'>No hay datos disponibles</td></tr>";
             return;
         }
 
         rankingData.forEach((jugador, index) => {
             console.log(`🎯 Procesando jugador:`, jugador);
+
+            let countryCode = jugador.country_code ? jugador.country_code.toUpperCase() : "UN"; // Código en mayúsculas o "UN" si no hay código
+
 
             let fila = document.createElement("tr");
 
@@ -31,7 +34,12 @@ async function cargarRanking() {
                 <td>${index + 1}</td>
                 <td>${jugador.nick_name || "Sin nombre"}</td>
                 <td>${jugador.score || 0}</td>
-                <td>${jugador.country_code || "Desconocido"}</td>
+                <td>
+                    <img src="https://flagsapi.com/${countryCode}/flat/32.png" 
+                         alt="Bandera de ${countryCode}" 
+                         onerror="this.src='https://flagsapi.com/UN/flat/32.png'" 
+                         width="32" height="32">
+                </td>
             `;
 
             rankingBody.appendChild(fila);
@@ -46,5 +54,8 @@ async function cargarRanking() {
 // Cargar ranking al iniciar la página
 document.addEventListener("DOMContentLoaded", () => {
     console.log("🚀 Página cargada, iniciando petición...");
-    cargarRanking();
+    if (!window.rankingCargado) {
+        window.rankingCargado = true;
+        cargarRanking();
+    }
 });
