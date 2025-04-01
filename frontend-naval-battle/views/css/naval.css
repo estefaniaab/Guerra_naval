@@ -14,3 +14,45 @@
     width: 100%;
     height: 100%;
 }
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.nombre {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.barra-amarilla {
+    border: 2px solid yellow;
+    padding: 10px;
+}
+
+.clima, .info, .empieza-juego {
+    border: 1px solid green;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.boton-juego {
+    width: 50px;
+    height: 50px;
+    border: 1px solid lightblue;
+    margin-bottom: 10px;
+}
+
+.boton-final {
+    width: 50px;
+    height: 50px;
+    border: 1px solid green;
+}
+
+.cuadro {
+    border: 2px solid black;
+    padding: 50px;
+}
