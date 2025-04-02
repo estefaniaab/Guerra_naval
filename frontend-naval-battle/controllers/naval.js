@@ -1,15 +1,23 @@
 //se obtienen los diferentes elementos
+import TableroUsuario  from "../models/tablero_usuario.js"
+import BarcoManager from "../models/barcoManager.js"
 document.addEventListener("DOMContentLoaded", () => {
     const button = document.getElementById("generarBoton");
     const tamañoCasillas = document.getElementById("tamañoCasillas");
-    const tablero = document.getElementById("tablero")
+    //const tablero = document.getElementById("tablero")
     //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
     button.addEventListener("click", () => {
         const tamaño = parseInt(tamañoCasillas.value);
         if (tamaño >= 10 && tamaño <= 20) {
-            hacerTablero(tamaño);
-            let miArray = crearArray(tamaño);
-            console.log(miArray);
+            
+            // Calcula el tamaño de cada casilla según el tamaño del tablero, el tabalero es 500 px
+            
+            const tamañoCasilla = Math.floor(500 / tamaño);
+            const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",new BarcoManager("zonaBarcos", tamañoCasilla))
+            document.getElementById("zonaBarcos").innerHTML = "";
+            new BarcoManager("zonaBarcos", tamañoCasilla)
+            //let miArray = crearArray(tamaño);
+            //console.log(miArray);
         } else {
             alert("El tamaño debe estar entre 10 y 20.");
         }
@@ -20,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function hacerTablero(tamaño) {
     const tablero = document.getElementById("tablero");
     tablero.innerHTML="";
+
     tablero.style.setProperty("--grid-tamaño", tamaño);
 
     for (let i = 0; i < tamaño; i++) { 

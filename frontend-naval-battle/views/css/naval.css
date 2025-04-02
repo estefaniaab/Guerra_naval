@@ -1,4 +1,4 @@
-#tablero {
+#tableroUsuario {
     display: grid;
     grid-template-columns: repeat(var(--grid-tamaño), 1fr);
     grid-template-rows: repeat(var(--grid-tamaño), 1fr);
@@ -8,9 +8,42 @@
     border: 2px solid black;
 }
 
-.casilla {
+.celda {
     background-color: #ddd;
     border: 1px solid black;
     width: 100%;
     height: 100%;
+}
+#zona-barcos {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los barcos pasen a la siguiente línea */
+    gap: 10px; /* Espacio entre barcos */
+    padding: 10px;
+    margin-bottom: 20px;
+    max-width: 100%; /* Se ajusta al ancho disponible */
+}
+
+
+
+.barco {
+    position: relative;
+    overflow: visible;
+    border: 2px solid #333;
+    box-sizing: border-box;
+    transition: width 0.3s ease, height 0.3s ease;
+    z-index: 10;
+}
+
+.barco-imagen-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.barco-imagen {
+    position: relative;
+    transition: transform 0.3s ease;
+    object-fit: cover;
+    transform-origin: center;
 }
