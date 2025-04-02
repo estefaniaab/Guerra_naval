@@ -1,10 +1,14 @@
 // Importaciones
 import { User } from "../models/user.js"
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
     let countries = document.getElementById("paises") // Accedemos a la componente del html
+    let battleFields = document.getElementById("battle-fields") // Accedemos al del battle-fields
     let cambioPagina = document.getElementById("cambioPagina"); //Accedemos al id de cambio de pagina
     let cambioRanking = document.getElementById("cambioRanking") 
+    let battleFieldsList = [] // Variable global
 
 
     /**
@@ -27,6 +31,25 @@ document.addEventListener("DOMContentLoaded", function() {
             })
         })
         .catch(error => console.error("Error al obtener los paises: ", error))
+    }
+
+    function listBattleFields() {
+        fetch("/frontend-naval-battle/assets/data/battle_field.json")
+        .then(response => response.json()) // Se convierte JSON
+        .then(data => {
+            battleFieldsList = data["campos_batalla_navales"] // Devuelve la lista
+            console.log("log battlefieldJSON" , battleFieldsList)
+            
+            battleFields.innerHTML = ""; // Se limpia
+            battleFields.innerHTML += `<option value="placeholder">Seleccione una zona de guerra</option>`            
+            battleFieldsList.forEach(battleField => {               
+                let code = battleField.id  // Extrae la clave de cada zona de guerra
+                let name = battleField.nombre // Extrae el valor
+                let selector = `<option value="${code}">${name}</option>`
+                battleFields.innerHTML += selector
+            })
+        })
+        .catch(error => console.error("Error al obtener los campos de batalla: ", error))
     }
  
     /**
@@ -55,12 +78,28 @@ document.addEventListener("DOMContentLoaded", function() {
     async function verificacionCambioPagina(target) {
         const nickname = document.getElementById("nickname").value // Se saca el valor del html
         const pais = countries.value // Se saca el valor del selector del pais
+        let batteField = {}
+        const battleFieldId = battleFields.value 
+        console.log(battleFieldId)
+        
+
+
+        if (!battleFieldId) {
+            console.error("No se selecciono el campo de batalla")
+            alert("No se selecciono la zona de guerra")
+
+        } else {
+            console.log("log battlefieldJSON" , battleFieldsList)
+            batteField = battleFieldsList.find(field => field.id == battleFieldId)
+            console.log(batteField)
+            alert("wait")
+        }
         
         // Validar campos
         if (nickname === "" || !pais || pais === "placeholder") { // Si no hay nombre o no hay pais o no ha seleccionado pais
             alert("Debes ingresar un nickname y seleccionar un pais!")
             console.log(`Nickname seleccionado: ${nickname}, Pais seleccionado: ${pais}`)
-            return false //Retorna falso para no crear usuario y no permitir cambiar de pagina
+            return false //Retorna falso  para no crear usuario y no permitir cambiar de pagina
         }
         // Si el tamaño no esta dentro de un rango
         if (nickname.length < 3 || nickname.length > 10) {
@@ -71,8 +110,10 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             // Creación de usuario
             const success = await createUser(nickname, 0, pais) // Score inicializa siempre en 0
+      
             if (success) { // Si se pudo crear el usuario
                 localStorage.setItem("currentUser", nickname) // Guardamos en localStorage, que puede servir despues para naval
+                localStorage.setItem("battleField", JSON.stringify(batteField)) // Guardamos en localStorage, que puede servir despues para naval
                 window.location.href = target //Redireccionamos a la pagina target
             } else {
                 alert("Error al guardar el usuario, intente nuevamente.")
@@ -112,5 +153,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //Llamado a la función
     listarPaises()
+    listBattleFields()
     changePage()
 })

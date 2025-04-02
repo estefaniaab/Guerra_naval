@@ -21,7 +21,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Intentamos cargar la información del clima
     try {
-        const data = await getWeather()
+        // Sacamos del localStorage
+        const battleField = localStorage.getItem("battleField")
+
+        const battleFieldJson = JSON.parse(battleField)
+
+        const longitude = battleFieldJson["longitud"]
+        const latitude = battleFieldJson["latitud"]
+        const campoBatalla = battleFieldJson["nombre"]
+        console.log(longitude);
+        console.log(latitude);
+        
+        
+        
+        const data = await getWeather(longitude, latitude, campoBatalla)
         const climaElement = document.getElementById("clima");
     
         // Limpiamos cualquier contenido previo
