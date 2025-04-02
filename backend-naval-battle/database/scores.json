@@ -14,5 +14,17 @@
     "Juan": {
         "score": 20,
         "country_code": "fo"
+    },
+    "David": {
+        "score": 0,
+        "country_code": "cg"
+    },
+    "Redo08": {
+        "score": 0,
+        "country_code": "ax"
+    },
+    "Luis": {
+        "score": 0,
+        "country_code": "at"
     }
 }

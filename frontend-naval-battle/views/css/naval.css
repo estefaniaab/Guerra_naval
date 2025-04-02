@@ -47,3 +47,87 @@
     object-fit: cover;
     transform-origin: center;
 }
+.avatar {
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.nombre {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.barra-amarilla {
+    border: 2px solid yellow;
+    padding: 10px;
+}
+
+.clima, .info, .empieza-juego {
+    border: 1px solid green;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.boton-juego {
+    width: 50px;
+    height: 50px;
+    border: 1px solid lightblue;
+    margin-bottom: 10px;
+}
+
+.boton-final {
+    width: 50px;
+    height: 50px;
+    border: 1px solid green;
+}
+
+.cuadro {
+    border: 2px solid black;
+    padding: 50px;
+}
+
+
+/* PARTES DEL CLIMA */
+.clima-titulo {
+    background-color: #9fc2e7; /* Fondo azul para el título */
+    color: rgb(255, 255, 255);
+    padding: 4px 8px;
+    border-radius: 8px 8px 0 0; /* Bordes redondeados arriba */
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1px;
+    width: 169px;
+    margin-left: auto; /* Centrado automático */
+    margin-right: auto;
+}
+#clima {
+    background-color: #ffffff; /* Fondo suave */
+    border-radius: 0 0 8px 8px;
+    padding: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: fit-content; /* El ancho se ajusta al contenido */
+    margin-left: auto; /* Centrado automático */
+    margin-right: auto;
+}
+
+
+#clima p {
+    font-size: 1rem;
+    color: #555;
+    margin: 2px 0;
+}
+
+#clima img {
+    width: 50px;
+    height: 50px;
+    margin-top: 8px;
+}
+
+#clima .info {
+    color: #333;
+    font-weight: bold;
+}
