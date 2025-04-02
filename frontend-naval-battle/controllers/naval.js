@@ -12,8 +12,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const tamaño = parseInt(tamañoCasillas.value);
         if (tamaño >= 10 && tamaño <= 20) {
             hacerTablero(tamaño);
-            let miArray = crearArray(tamaño);
-            console.log(miArray);
         } else {
             alert("El tamaño debe estar entre 10 y 20.");
         }
@@ -96,12 +94,4 @@ function hacerTablero(tamaño) {
         }
     }
 }
-//creamos una lista de acuerdo al tamaño del tablero y la llenamos con agua osea "a"
-function crearArray(tamaño) {
-    let arrayList = [];
-    for (let i = 0; i < tamaño; i++) {
-        let subArray = new Array(tamaño).fill("a");
-        arrayList.push(subArray)
-    }
-    return arrayList
-}
+

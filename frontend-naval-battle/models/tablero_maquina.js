@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const tamaño = parseInt(tamañoCasillas.value);
         if (!isNaN(tamaño) && tamaño>0) {
             let miArray=crearArray(tamaño,tamaño);
+            console.log(miArray);
         }
     })
 });
@@ -21,15 +22,3 @@ function crearArray(filas, columnas) {
     return arrayList;
 }
 
-function guardarJSON(contenido) {
-    fetch("http://127.0.0.1:5000/guardar-json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(contenido)
-    })
-    .then(response => response.text())
-    .then(data => console.log(data))
-    .catch(error => console.error("Error:", error));
-}
