@@ -4,10 +4,11 @@ import { getWeather } from "../utils/helpers.js"; // Importamos la función de s
 //se obtienen los diferentes elementos
 import TableroUsuario  from "../models/tablero_usuario.js"
 import BarcoManager from "../models/barcoManager.js"
-document.addEventListener("DOMContentLoaded", () => {
+
+document.addEventListener("DOMContentLoaded", async function () {
     const button = document.getElementById("generarBoton");
     const tamañoCasillas = document.getElementById("tamañoCasillas");
-    const tablero = document.getElementById("tablero")
+    //const tablero = document.getElementById("tablero")
     //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
     button.addEventListener("click", () => {
         const tamaño = parseInt(tamañoCasillas.value);
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             new BarcoManager("zonaBarcos", tamañoCasilla)
             //let miArray = crearArray(tamaño);
             //console.log(miArray);
-            hacerTablero(tamaño);
+            //hacerTablero(tamaño);
         } else {
             alert("El tamaño debe estar entre 10 y 20.");
         }
@@ -91,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //limpiamos el tablero y agregamos las casillas de acuerdo al tamaño escogido
-function hacerTablero(tamaño) {
+/*function hacerTablero(tamaño) {
     const tablero = document.getElementById("tablero");
     tablero.innerHTML="";
 
@@ -104,5 +105,5 @@ function hacerTablero(tamaño) {
             tablero.appendChild(casilla);
         }
     }
-}
+}*/
 

@@ -1,4 +1,3 @@
-
 import BarcoManager from "../models/barcoManager.js";
 class TableroUsuario {
     constructor(tamaño, id, barcoManager) {
@@ -27,16 +26,31 @@ class TableroUsuario {
                 casilla.dataset.columna = j;
 
                 // Permitir que la casilla acepte el drop
-                casilla.addEventListener("dragover", (e) => {
-                    e.preventDefault();  // Necesario para permitir el drop
-                });
-
-                casilla.addEventListener("drop", (e) => this.barcoManager.colocarBarco(e, this));
-
+               
                 this.tablero.appendChild(casilla);
             }
         }
+        // Agregar eventos delegados al tablero
+    this.tablero.addEventListener("dragover", (e) => {
+        if (e.target.classList.contains("celda")) {
+            e.preventDefault(); // Necesario para permitir el drop
+        }
+    });
+
+    this.tablero.addEventListener("drop", (e) => {
+        if (e.target.classList.contains("celda")) {
+            this.barcoManager.colocarBarco(e, this);
+        }
+    });
     }
+
+    actualizarMatriz(fila, columna, longitud, orientacion, valor) {
+        for (let i = 0; i < longitud; i++) {
+            const nuevaFila = orientacion === "horizontal" ? fila : fila + i;
+            const nuevaColumna = orientacion === "horizontal" ? columna + i : columna;
+            this.matriz[nuevaFila][nuevaColumna] = valor; // "b" para barco, por ejemplo
+    }
+}
     
 
     

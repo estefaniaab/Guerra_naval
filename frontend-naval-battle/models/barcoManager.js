@@ -41,43 +41,45 @@ class BarcoManager {
   colocarBarco(event, tablero) {
       event.preventDefault();
 
-      // 📌 Obtener la celda destino
-      const fila = event.target.dataset.fila;
-      const columna = event.target.dataset.columna;
+      // Obtener la celda destino
+      const fila = parseInt(event.target.dataset.fila);
+      const columna = parseInt(event.target.dataset.columna);
       if (!fila || !columna) {
-          console.error("❌ No se pudo determinar la celda de destino.");
+          console.error(" No se pudo determinar la celda de destino.");
           return;
       }
 
-      // 📌 Obtener la información del barco desde el drag event
+      // Obtener la información del barco desde el drag event
       const barcoData = JSON.parse(event.dataTransfer.getData("text/plain"));
       if (!barcoData) {
-          console.error("❌ No se pudo obtener la información del barco.");
+          console.error(" No se pudo obtener la información del barco.");
           return;
       }
 
-      console.log(`🚢 Colocando barco ${barcoData.id} en (${fila}, ${columna})`);
-
-      // 📌 Buscar el barco en la lista de barcos
+      console.log(`Colocando barco ${barcoData.id} en (${fila}, ${columna})`);
+      console.log(tablero.matriz)
+      //  Buscar el barco en la lista de barcos
       const barco = this.barcos.find(b => b.id === barcoData.id);
       if (!barco) {
-          console.error(`❌ No se encontró el barco con ID ${barcoData.id}`);
+          console.error(` No se encontró el barco con ID ${barcoData.id}`);
           return;
       }
-
-      // 📌 Verificar si el barco cabe en la posición
-      if (!this.puedeColocarseEn(tablero, barco, parseInt(fila), parseInt(columna))) {
-          console.error(`🚨 No se puede colocar el barco en esta posición.`);
-          return;
+      // Si el barco ya está colocado, limpiar su posición anterior en la matriz
+      if (barco.colocado && barco.posicionActual) {
+        const { fila: filaAnterior, columna: columnaAnterior } = barco.posicionActual;
+        tablero.actualizarMatriz(filaAnterior, columnaAnterior, barco.longitud, barco.orientacion,"a");
       }
-
-      // 📌 Posicionar visualmente el barco
-      barco.posicionarEnTablero(parseInt(fila), parseInt(columna), this.tamañoCasilla);
-
-      // 📌 Agregar barco al tablero
-      tablero.tablero.appendChild(barco.elemento);
-
-      console.log(`✅ Barco ${barco.id} colocado correctamente en el tablero.`);
+      //  Verificar si el barco cabe en la posición y colocarlo
+      if (this.puedeColocarseEn(tablero, barco, parseInt(fila), parseInt(columna))) {
+        barco.posicionarEnTablero(parseInt(fila), parseInt(columna), this.tamañoCasilla);
+        tablero.tablero.appendChild(barco.elemento);
+        tablero.actualizarMatriz(parseInt(fila), parseInt(columna), barco.longitud, barco.orientacion, "b");
+        barco.colocado = true;
+        barco.posicionActual = { fila, columna };
+        console.log(` Barco ${barco.id} colocado y matriz actualizada.`);
+      } else {
+          console.error(` No se puede colocar el barco en esta posición.`);
+      }
   }
 
   puedeColocarseEn(tablero, barco, fila, columna) {

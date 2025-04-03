@@ -5,6 +5,8 @@ class Barco {
         this.tamañoCasilla = tamañoCasilla;
         this.orientacion = "horizontal";
         this.tipoImagen = tipoImagen;
+        this.colocado=false;
+        this.posicionActual=null;
         this.elemento = null; // Inicialmente null
         this.crearElemento()
     }
@@ -32,38 +34,7 @@ class Barco {
     }
     
     setDimensiones() {
-        if (!this.elemento) return; // Previene errores si el elemento aún no está listo
-
-        const esHorizontal = this.orientacion === "horizontal";
-        /*this.elemento.style.width = `${esHorizontal ? this.longitud * this.tamañoCasilla : this.tamañoCasilla}px`;
-        this.elemento.style.height = `${esHorizontal ? this.tamañoCasilla : this.longitud * this.tamañoCasilla}px`;
-        this.elemento.style.transform = esHorizontal ? "rotate(0deg)" : "rotate(90deg)";*/
-        this.elemento.style.width = esHorizontal 
-            ? `${this.longitud * this.tamañoCasilla}px` 
-            : `${this.tamañoCasilla}px`;
-
-        this.elemento.style.height = esHorizontal 
-            ? `${this.tamañoCasilla}px` 
-            : `${this.longitud * this.tamañoCasilla}px`;
-        // Seleccionar la imagen interna
-        const img = this.elemento.querySelector(".barco-imagen");
-
-        // Restablecer la transformación antes de rotar
-        img.style.transform = esHorizontal ? "rotate(0deg)" : "rotate(90deg)";
-        
-        // Ajustar dimensiones de la imagen sin deformarla
-        img.style.width = esHorizontal 
-            ? "100%" 
-            : `${this.longitud * this.tamañoCasilla}px`;
-
-        img.style.height = esHorizontal 
-            ? "100%" 
-            : `${this.tamañoCasilla}px`;
-        
-        // Centrar la imagen cuando está en vertical
-        img.style.position = "absolute";
-        img.style.left = esHorizontal ? "0" : `-${(this.longitud - 1) * this.tamañoCasilla / 2}px`;
-        img.style.top = esHorizontal ? "0" : `${(this.longitud - 1) * this.tamañoCasilla / 2}px`;
+        this.ajustarTamaño();
     }
 
     onDragStart(event) {
@@ -81,20 +52,32 @@ class Barco {
         this.elemento.classList.toggle("vertical");
         this.setDimensiones();
     }
+    ajustarTamaño(esPosicionamiento = false) {
+        const esHorizontal = this.orientacion === "horizontal";
+        const ancho = esHorizontal ? this.longitud * this.tamañoCasilla : this.tamañoCasilla;
+        const alto = esHorizontal ? this.tamañoCasilla : this.longitud * this.tamañoCasilla;
+    
+        this.elemento.style.width = `${ancho}px`;
+        this.elemento.style.height = `${alto}px`;
+    
+        const img = this.elemento.querySelector(".barco-imagen");
+        img.style.transform = esHorizontal ? "rotate(0deg)" : "rotate(90deg)";
+        img.style.width = esHorizontal ? "100%" : `${alto}px`;
+        img.style.height = esHorizontal ? "100%" : `${ancho}px`;
+        img.style.left = esHorizontal ? "0" : `-${(this.longitud - 1) * this.tamañoCasilla / 2}px`;
+        img.style.top = esHorizontal ? "0" : `${(this.longitud - 1) * this.tamañoCasilla / 2}px`;
+    
+        if (esPosicionamiento) {
+            this.elemento.style.position = "absolute";
+        }
+    }
     posicionarEnTablero(fila, columna, tamañoCasilla) {
         const casillaBase = document.querySelector(`.celda[data-fila="${fila}"][data-columna="${columna}"]`);
-        if (!casillaBase) {
-            console.error(`🚨 No se encontró la celda en (${fila}, ${columna})`);
-            return;
-        }
-
-        this.elemento.style.position = "absolute";
+        if (!casillaBase) return;
+        this.tamañoCasilla = tamañoCasilla;
         this.elemento.style.left = `${casillaBase.offsetLeft}px`;
         this.elemento.style.top = `${casillaBase.offsetTop}px`;
-        this.elemento.style.width = this.orientacion === "horizontal" ? `${tamañoCasilla * this.longitud}px` : `${tamañoCasilla}px`;
-        this.elemento.style.height = this.orientacion === "vertical" ? `${tamañoCasilla * this.longitud}px` : `${tamañoCasilla}px`;
-        this.elemento.dataset.fila = fila;
-        this.elemento.dataset.columna = columna;
+        this.ajustarTamaño(true);
         
         console.log(`✅ Barco ${this.id} posicionado en (${fila}, ${columna})`);
     }
