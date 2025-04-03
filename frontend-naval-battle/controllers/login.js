@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(response => response.json()) // Se convierte JSON
         .then(data => {
-            countries.innerHTML = ""; // Se limpia
+            countries.innerHTML = "" // Se limpia
             countries.innerHTML += `<option value="placeholder">Seleccione un pais</option>`            
             data.forEach(country => { 
                 let code = Object.keys(country)[0] // Extrae la clave de cada pais
@@ -92,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("log battlefieldJSON" , battleFieldsList)
             batteField = battleFieldsList.find(field => field.id == battleFieldId)
             console.log(batteField)
-            alert("wait")
         }
         
         // Validar campos
@@ -114,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (success) { // Si se pudo crear el usuario
                 localStorage.setItem("currentUser", nickname) // Guardamos en localStorage, que puede servir despues para naval
                 localStorage.setItem("battleField", JSON.stringify(batteField)) // Guardamos en localStorage, que puede servir despues para naval
+                localStorage.setItem("flagUser", pais) // También guardamos el pais que escogío 
                 window.location.href = target //Redireccionamos a la pagina target
             } else {
                 alert("Error al guardar el usuario, intente nuevamente.")
