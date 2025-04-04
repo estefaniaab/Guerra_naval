@@ -1,4 +1,4 @@
-#tableroUsuario {
+.tablero {
     display: grid;
     grid-template-columns: repeat(var(--grid-tamaño), 1fr);
     grid-template-rows: repeat(var(--grid-tamaño), 1fr);
@@ -10,8 +10,8 @@
 }
 
 .celda {
-    background-color: #ddd;
-    border: 1px solid black;
+    background-color: rgba(200, 202, 209, 0.6); /* Mismo color pero con 60% de opacidad */
+    border: 1px solid rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 100%;
 }
@@ -66,7 +66,7 @@
     padding: 10px;
 }
 
-.clima, .info, .empieza-juego {
+.info, .empieza-juego {
     border: 1px solid green;
     padding: 10px;
     margin-top: 10px;
