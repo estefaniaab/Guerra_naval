@@ -7,6 +7,7 @@ class TableroUsuario {
         this.matriz = this.crearMatriz();
         this.barcoManager=barcoManager
         this.generarTablero();
+        this.inicializarEventosDragAndDrop()
     }
 
     crearMatriz() {
@@ -30,19 +31,27 @@ class TableroUsuario {
                 this.tablero.appendChild(casilla);
             }
         }
-        // Agregar eventos delegados al tablero
-    this.tablero.addEventListener("dragover", (e) => {
-        if (e.target.classList.contains("celda")) {
-            e.preventDefault(); // Necesario para permitir el drop
-        }
-    });
-
-    this.tablero.addEventListener("drop", (e) => {
-        if (e.target.classList.contains("celda")) {
-            this.barcoManager.colocarBarco(e, this);
-        }
-    });
     }
+        // Agregar eventos delegados al tablero
+    inicializarEventosDragAndDrop(){
+        this.tablero.addEventListener("dragover", (e) => {
+            if (e.target.classList.contains("celda")) {
+                e.preventDefault(); // Necesario para permitir el drop
+            }
+        });
+
+        this.tablero.addEventListener("drop", (e) => {
+            if (e.target.classList.contains("celda")) {
+                this.barcoManager.colocarBarco(e, this);
+            }
+        });
+    }
+
+    
+    
+
+    
+    
 
     actualizarMatriz(fila, columna, longitud, orientacion, valor) {
         for (let i = 0; i < longitud; i++) {

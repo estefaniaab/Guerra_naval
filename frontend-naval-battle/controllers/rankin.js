@@ -3,7 +3,7 @@ const servidor = "http://127.0.0.1:5000";
 
 async function cargarRanking() {
     try {
-        console.log("📡 Intentando obtener datos desde:", `${servidor}/ranking`);
+        console.log(" Intentando obtener datos desde:", `${servidor}/ranking`);
 
         const response = await fetch(`${servidor}/ranking`);
         
@@ -12,7 +12,7 @@ async function cargarRanking() {
         }
 
         const rankingData = await response.json();
-        console.log("✅ Datos recibidos:", rankingData);
+        console.log(" Datos recibidos:", rankingData);
         
         const rankingBody = document.getElementById("ranking-body");
         rankingBody.innerHTML = ""; // Limpiar la tabla antes de agregar datos nuevos

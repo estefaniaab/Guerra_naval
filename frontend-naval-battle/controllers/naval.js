@@ -15,11 +15,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (tamaño >= 10 && tamaño <= 20) {
             
             // Calcula el tamaño de cada casilla según el tamaño del tablero, el tabalero es 500 px
-            
             const tamañoCasilla = Math.floor(500 / tamaño);
-            const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",new BarcoManager("zonaBarcos", tamañoCasilla))
+            const barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
+            
+            const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",barcoManager)
             document.getElementById("zonaBarcos").innerHTML = "";
-            new BarcoManager("zonaBarcos", tamañoCasilla)
+            barcoManager.crearBarcos();
             //let miArray = crearArray(tamaño);
             //console.log(miArray);
             //hacerTablero(tamaño);

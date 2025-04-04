@@ -23,7 +23,7 @@ class Barco {
         console.log(`🖼️ Asignando imagen: ${this.tipoImagen} al barco ${this.id}`);
         imgElement.src = this.tipoImagen;
         imgElement.classList.add("barco-imagen");
-        imgElement.draggable = false;
+        imgElement.draggable = true;
 
         this.elemento.appendChild(imgElement);
         this.setDimensiones(); // Ahora `this.elemento` ya está definido
@@ -38,19 +38,18 @@ class Barco {
     }
 
     onDragStart(event) {
-        event.dataTransfer.setData("text/plain", JSON.stringify({
-            id: this.id, 
-            longitud: this.longitud, 
-            orientacion: this.orientacion, 
-            tipoImagen: this.tipoImagen
-        }));
+        event.dataTransfer.setData("text/plain", JSON.stringify({ id: this.id, orientacion:this.orientacion}));
     }
 
     rotar(event) {
         if (event) event.stopPropagation();
-        this.orientacion = this.orientacion === "horizontal" ? "vertical" : "horizontal";
-        this.elemento.classList.toggle("vertical");
-        this.setDimensiones();
+        if (!this.colocado ) {
+            this.orientacion = this.orientacion === "horizontal" ? "vertical" : "horizontal";
+            this.elemento.classList.toggle("vertical");
+            this.setDimensiones();
+        } else if (this.colocado) {
+            console.log("No se puede rotar el barco una vez colocado.");
+        }
     }
     ajustarTamaño(esPosicionamiento = false) {
         const esHorizontal = this.orientacion === "horizontal";
@@ -75,6 +74,7 @@ class Barco {
         const casillaBase = document.querySelector(`.celda[data-fila="${fila}"][data-columna="${columna}"]`);
         if (!casillaBase) return;
         this.tamañoCasilla = tamañoCasilla;
+        
         this.elemento.style.left = `${casillaBase.offsetLeft}px`;
         this.elemento.style.top = `${casillaBase.offsetTop}px`;
         this.ajustarTamaño(true);
