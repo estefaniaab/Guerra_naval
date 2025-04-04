@@ -1,4 +1,5 @@
 import BarcoManager from "../models/barcoManager.js";
+import { generarTableroGenerico } from "../utils/helpers.js";
 class TableroUsuario {
     constructor(tamaño, id, barcoManager) {
         this.id=id
@@ -15,22 +16,7 @@ class TableroUsuario {
     }
 
     generarTablero() {
-        
-        this.tablero.innerHTML = "";
-        this.tablero.style.setProperty("--grid-tamaño", this.tamaño);
-
-        for (let i = 0; i < this.tamaño; i++) {
-            for (let j = 0; j < this.tamaño; j++) {
-                const casilla = document.createElement("div");
-                casilla.classList.add("celda");
-                casilla.dataset.fila = i;
-                casilla.dataset.columna = j;
-
-                // Permitir que la casilla acepte el drop
-               
-                this.tablero.appendChild(casilla);
-            }
-        }
+        generarTableroGenerico(this.tablero, this.tamaño,"celda")
     }
         // Agregar eventos delegados al tablero
     inicializarEventosDragAndDrop(){
@@ -45,24 +31,16 @@ class TableroUsuario {
                 this.barcoManager.colocarBarco(e, this);
             }
         });
-    }
-
-    
-    
-
-    
+    } 
     
 
     actualizarMatriz(fila, columna, longitud, orientacion, valor) {
         for (let i = 0; i < longitud; i++) {
             const nuevaFila = orientacion === "horizontal" ? fila : fila + i;
             const nuevaColumna = orientacion === "horizontal" ? columna + i : columna;
-            this.matriz[nuevaFila][nuevaColumna] = valor; // "b" para barco, por ejemplo
+            this.matriz[nuevaFila][nuevaColumna] = valor; 
+        }
     }
-}
-    
-
-    
     
       
 }

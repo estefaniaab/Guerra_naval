@@ -69,3 +69,21 @@ export function htmlClima(climaElement, data) {
     titulo.style.width = `${climaAncho}px`
   }, 10)
 }
+/** Funcion para crear los tableros
+ * 
+ * @param {*}  contendeor
+ */
+export function generarTableroGenerico(contenedor, tamaño, claseCelda = "celda") {
+  contenedor.innerHTML = "";
+  contenedor.style.setProperty("--grid-tamaño", tamaño);
+
+  for (let i = 0; i < tamaño; i++) {
+      for (let j = 0; j < tamaño; j++) {
+          const celda = document.createElement("div");
+          celda.classList.add(claseCelda);
+          celda.dataset.fila = i;
+          celda.dataset.columna = j;
+          contenedor.appendChild(celda);
+      }
+  }
+}

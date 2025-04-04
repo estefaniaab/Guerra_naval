@@ -20,7 +20,7 @@ class Barco {
 
         // Imagen del barco
         const imgElement = document.createElement("img");
-        console.log(`🖼️ Asignando imagen: ${this.tipoImagen} al barco ${this.id}`);
+        console.log(`Asignando imagen: ${this.tipoImagen} al barco ${this.id}`);
         imgElement.src = this.tipoImagen;
         imgElement.classList.add("barco-imagen");
         imgElement.draggable = true;
@@ -74,12 +74,12 @@ class Barco {
         const casillaBase = document.querySelector(`.celda[data-fila="${fila}"][data-columna="${columna}"]`);
         if (!casillaBase) return;
         this.tamañoCasilla = tamañoCasilla;
-        
+
         this.elemento.style.left = `${casillaBase.offsetLeft}px`;
         this.elemento.style.top = `${casillaBase.offsetTop}px`;
         this.ajustarTamaño(true);
         
-        console.log(`✅ Barco ${this.id} posicionado en (${fila}, ${columna})`);
+        console.log(`Barco ${this.id} posicionado en (${fila}, ${columna})`);
     }
 }
 

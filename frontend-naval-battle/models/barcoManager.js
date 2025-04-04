@@ -80,14 +80,14 @@ class BarcoManager {
       //  Verificar si el barco cabe en la posición y colocarlo
       if (this.puedeColocarseEn(tablero, barco, parseInt(fila), parseInt(columna))) {      
         // Colocar el barco en el tablero
-        //barco.elemento.style.display = "none"; // Ocultar el barco
+        
         barco.posicionarEnTablero(parseInt(fila), parseInt(columna), this.tamañoCasilla);
         // Solo añadir al tablero si no está ya en él
        
         tablero.tablero.appendChild(barco.elemento);
         
         
-        tablero.actualizarMatriz(parseInt(fila), parseInt(columna), barco.longitud, barco.orientacion, "b");
+        tablero.actualizarMatriz(parseInt(fila), parseInt(columna), barco.longitud, barco.orientacion, "p1");
 
         // Actualizar el estado del barco
         barco.colocado = true;
