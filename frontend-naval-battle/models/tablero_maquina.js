@@ -6,7 +6,7 @@ class TableroMaquina{
         this.matriz=this.crearMatriz();
         this.inicializarMatrizconBarcos();
         this.generarTablero();
-        this.inicializarEventosClick();
+        
     }
     crearMatriz() {
         return Array.from({ length: this.tamaño }, () => Array(this.tamaño).fill("a"));
@@ -23,16 +23,7 @@ class TableroMaquina{
         }
     }
 
-    inicializarEventosClick() {
-        this.tablero.addEventListener("click", (e) => {
-            if (e.target.classList.contains("celda")) {
-                const fila = parseInt(e.target.dataset.fila);
-                const columna = parseInt(e.target.dataset.columna);
-                console.log(`Disparo en (${fila}, ${columna})`);
-                this.registrarDisparo(fila, columna, e.target);
-            }
-        });
-    }
+   
 
      //se colocan los barcos en la matriz
      colocarBarcos() {
@@ -123,18 +114,6 @@ class TableroMaquina{
         return array;
     }    
 
-    registrarDisparo(fila, columna,celda) {
-        if (this.matriz[fila][columna] == "p2") {
-            console.log("Disparo Exitoso.");
-            this.matriz[fila][columna] = "p2-h"; // Marca como acertado
-            celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
-        
-        } else {
-            console.log("Disparo Fallido.");
-            this.matriz[fila][columna] = "b"; // Marca como fallido
-            celda.innerHTML = `<img src="../../assets/agua.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
-        }
-    }
 }   
 
 export default TableroMaquina
