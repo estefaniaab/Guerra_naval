@@ -1,11 +1,14 @@
 // Importaciones
-import { getWeather } from "../utils/helpers.js"; // Importamos la función de sacar el clima de helpers
+import { getWeather, htmlClima } from "../utils/helpers.js"; // Importamos la función de sacar el clima de helpers
 
 //se obtienen los diferentes elementos
 import TableroUsuario  from "../models/tablero_usuario.js"
 import BarcoManager from "../models/barcoManager.js"
 
 document.addEventListener("DOMContentLoaded", async function () {
+    const usuario = document.getElementById("nombre-usuario")
+    const bandera = document.getElementById("bandera-usuario") // SE NECESITA UNA FUNCIÓN MÁS GENERICA PARA LLAMAR A LA API DE BANDERAS
+
     const button = document.getElementById("generarBoton");
     const tamañoCasillas = document.getElementById("tamañoCasillas");
     //const tablero = document.getElementById("tablero")
@@ -29,64 +32,27 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     });
 
+    // Nombre usuario
+    const nickname = localStorage.getItem("currentUser") // Sacamos la información del storage
+    console.log(nickname);
+    
+    usuario.innerHTML = ""
+    usuario.innerHTML = `<p>${nickname}</p>`
+
     // Intentamos cargar la información del clima
     try {
-        // Sacamos del localStorage
-        const battleField = localStorage.getItem("battleField")
+        // Sacamos del localStorage el JSON 
+        const battleField = JSON.parse(localStorage.getItem("battleField"))
+        
+        // Mandamos la información a la función
+        const data = await getWeather(battleField["longitud"], battleField["latitud"], battleField["nombre"])
 
-        const battleFieldJson = JSON.parse(battleField)
-
-        const longitude = battleFieldJson["longitud"]
-        const latitude = battleFieldJson["latitud"]
-        const campoBatalla = battleFieldJson["nombre"]
-        console.log(longitude);
-        console.log(latitude);
-        
-        
-        
-        const data = await getWeather(longitude, latitude, campoBatalla)
+        // Sacamos el elemento que modificaremos en el html
         const climaElement = document.getElementById("clima");
     
-        // Limpiamos cualquier contenido previo
-        climaElement.innerHTML = '';
-    
-        // Crear un contenedor para los datos del clima
-        const weatherInfo = document.createElement('div');
-        weatherInfo.classList.add('weather-info');
-    
-        // Título (Ciudad)
-        const cityElement = document.createElement('p');
-        cityElement.textContent = `Ciudad: ${data.city}`;
-        weatherInfo.appendChild(cityElement);
-    
-        // Temperatura
-        const tempElement = document.createElement('p');
-        tempElement.textContent = `Temperatura: ${data.tempCelsius}°C`;
-        weatherInfo.appendChild(tempElement);
-    
-        // Humedad
-        const humidityElement = document.createElement('p');
-        humidityElement.textContent = `Humedad: ${data.humidity}%`;
-        weatherInfo.appendChild(humidityElement);
-    
-        // Velocidad del viento
-        const windSpeedElement = document.createElement('p');
-        windSpeedElement.textContent = `Viento: ${data.windSpeed} m/s`;
-        weatherInfo.appendChild(windSpeedElement);
-    
-        // Descripción del clima
-        const descriptionElement = document.createElement('p');
-        descriptionElement.textContent = `Clima: ${data.climaDesc}`;
-        weatherInfo.appendChild(descriptionElement);
-    
-        // Icono del clima
-        const weatherIconElement = document.createElement('img');
-        weatherIconElement.src = data.iconUrl;
-        weatherIconElement.alt = 'Clima';
-        weatherInfo.appendChild(weatherIconElement);
-    
-        // Agregar todo al contenedor de clima
-        climaElement.appendChild(weatherInfo);
+        // Hacemos los cambios
+        htmlClima(climaElement, data)
+
     } catch(error) {
         console.error("Error al obtener el clima: ", error)
     }
