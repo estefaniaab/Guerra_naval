@@ -4,7 +4,7 @@ import { getWeather, htmlClima } from "../utils/helpers.js"; // Importamos la fu
 //se obtienen los diferentes elementos
 import TableroUsuario  from "../models/tablero_usuario.js"
 import BarcoManager from "../models/barcoManager.js"
-
+import TableroMaquina from "../models/tablero_maquinacopia.js";
 document.addEventListener("DOMContentLoaded", async function () {
     const usuario = document.getElementById("nombre-usuario")
     const bandera = document.getElementById("bandera-usuario") // SE NECESITA UNA FUNCIÓN MÁS GENERICA PARA LLAMAR A LA API DE BANDERAS
@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", async function () {
             const barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
             
             const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",barcoManager)
+            // Instanciar el tablero de la máquina
+            const tableroMaquina = new TableroMaquina(tamaño, "tableroMaquina");
+            
             document.getElementById("zonaBarcos").innerHTML = "";
             barcoManager.crearBarcos();
             //let miArray = crearArray(tamaño);

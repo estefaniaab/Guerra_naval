@@ -1,4 +1,4 @@
-#tableroUsuario {
+#tableroUsuario, #tableroMaquina {
     display: grid;
     grid-template-columns: repeat(var(--grid-tamaño), 1fr);
     grid-template-rows: repeat(var(--grid-tamaño), 1fr);
