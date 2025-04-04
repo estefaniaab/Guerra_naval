@@ -7,7 +7,7 @@ import BarcoManager from "../models/barcoManager.js"
 import TableroMaquina from "../models/tablero_maquinacopia.js";
 document.addEventListener("DOMContentLoaded", async function () {
     const usuario = document.getElementById("nombre-usuario")
-    const bandera = document.getElementById("bandera-usuario") // SE NECESITA UNA FUNCIÓN MÁS GENERICA PARA LLAMAR A LA API DE BANDERAS
+    const bandera = document.getElementById("bandera-usuario") 
 
     const button = document.getElementById("generarBoton");
     const tamañoCasillas = document.getElementById("tamañoCasillas");
@@ -37,10 +37,25 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Nombre usuario
     const nickname = localStorage.getItem("currentUser") // Sacamos la información del storage
+
+    // Bandera usuario
+    const flag = localStorage.getItem("flagUser").toUpperCase()
+
     console.log(nickname);
+    console.log(flag);
     
+    // Inserciones en el HTML
     usuario.innerHTML = ""
     usuario.innerHTML = `<p>${nickname}</p>`
+
+    bandera.innerHTML = ""
+    bandera.innerHTML = `
+        <img src="https://flagsapi.com/${flag}/shiny/32.png" 
+                         alt="Bandera de ${flag}" 
+                         onerror="this.src='https://flagsapi.com/UN/flat/32.png'" 
+                         width="64" height="64">
+                         `
+
 
     // Intentamos cargar la información del clima
     try {

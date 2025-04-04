@@ -49,39 +49,25 @@ export function htmlClima(climaElement, data) {
   const weatherInfo = document.createElement('div');
   weatherInfo.classList.add('weather-info');
 
-  // Título (Ciudad)
-  const cityElement = document.createElement('p');
-  cityElement.textContent = `Ciudad: ${data.city}`;
-  weatherInfo.appendChild(cityElement);
-
-  // Temperatura
-  const tempElement = document.createElement('p');
-  tempElement.textContent = `Temperatura: ${data.tempCelsius}°C`;
-  weatherInfo.appendChild(tempElement);
-
-  // Humedad
-  const humidityElement = document.createElement('p');
-  humidityElement.textContent = `Humedad: ${data.humidity}%`;
-  weatherInfo.appendChild(humidityElement);
-
-  // Velocidad del viento
-  const windSpeedElement = document.createElement('p');
-  windSpeedElement.textContent = `Viento: ${data.windSpeed} m/s`;
-  weatherInfo.appendChild(windSpeedElement);
-
-  // Descripción del clima
-  const descriptionElement = document.createElement('p');
-  descriptionElement.textContent = `Clima: ${data.climaDesc}`;
-  weatherInfo.appendChild(descriptionElement);
-
-  // Icono del clima
-  const weatherIconElement = document.createElement('img');
-  weatherIconElement.src = data.iconUrl;
-  weatherIconElement.alt = 'Clima';
-  weatherInfo.appendChild(weatherIconElement);
+  // Agregar los datos
+  weatherInfo.innerHTML = `
+    <p>Ciudad: ${data.city}</p>
+    <p>Temperatura: ${data.tempCelsius}°C</p>
+    <p>Humedad: ${data.humidity}%</p>
+    <p>Viento: ${data.windSpeed}m/s</p>
+    <p>Clima: ${data.climaDesc}</p>
+    <img src="${data.iconUrl}" alt="Clima">
+  `
 
   // Agregar todo al contenedor de clima
   climaElement.appendChild(weatherInfo);
+
+  // Ajustar el ancho del titulo
+  setTimeout(() => {
+    const climaAncho = climaElement.offsetWidth 
+    const titulo = document.querySelector('.clima-titulo')
+    titulo.style.width = `${climaAncho}px`
+  }, 10)
 }
 /** Funcion para crear los tableros
  * 
