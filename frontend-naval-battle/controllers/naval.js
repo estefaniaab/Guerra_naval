@@ -4,7 +4,7 @@ import { getWeather, htmlClima } from "../utils/helpers.js"; // Importamos la fu
 //se obtienen los diferentes elementos
 import TableroUsuario  from "../models/tablero_usuario.js"
 import BarcoManager from "../models/barcoManager.js"
-import TableroMaquina from "../models/tablero_maquinacopia.js";
+import TableroMaquina from "../models/tablero_maquina.js";
 document.addEventListener("DOMContentLoaded", async function () {
     const usuario = document.getElementById("nombre-usuario")
     const bandera = document.getElementById("bandera-usuario") 
