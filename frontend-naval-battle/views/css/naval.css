@@ -1,19 +1,47 @@
-#tableroUsuario, #tableroMaquina {
-    display: grid;
-    grid-template-columns: repeat(var(--grid-tamaño), 1fr);
-    grid-template-rows: repeat(var(--grid-tamaño), 1fr);
-    gap: 2px;
-    width: 500px;
-    height: 500px;
-    border: 2px solid black;
-    position: relative;
+.tablero{
+    background-image: url("/frontend-naval-battle/assets/Soleado.jpeg");
+      background-size: cover;
+      background-position: center;
+      display: grid;
+      grid-template-columns: repeat(var(--grid-tamaño), 1fr);
+      grid-template-rows: repeat(var(--grid-tamaño), 1fr);
+      gap: 2px;
+      width: 500px;
+      height: 500px;
+      border: 2px solid black;
+      position: relative;
 }
 
 .celda {
-    background-color: #ddd;
-    border: 1px solid black;
+    background-color: rgba(38, 46, 88, 0.6); /* Mismo color pero con 60% de opacidad */
+    border: 1px solid rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 100%;
+    transition: all 0.3s ease;
+    /* Efecto de vidrio esmerilado */
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+}
+/* Efectos interactivos */
+.celda:hover {
+    background-color: rgba(38, 46, 88, 0.4);
+    transform: scale(1.05);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+/* Cuando la celda tiene contenido (barco, impacto, etc) */
+.celda.contenido {
+    background-color: rgba(38, 46, 88, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+ /* Clases adicionales para estados específicos */
+ .celda.barco {
+    background-color: rgba(106, 123, 147, 0.7);
+}
+.celda.impacto {
+    background-color: rgba(255, 0, 0, 0.6);
+}
+.celda.agua {
+    background-color: rgba(0, 100, 200, 0.4);
 }
 #zona-barcos {
     display: flex;

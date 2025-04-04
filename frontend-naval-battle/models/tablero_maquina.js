@@ -135,6 +135,6 @@ class TableroMaquina{
             celda.innerHTML = `<img src="../../assets/agua.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
         }
     }
-}
+}   
 
 export default TableroMaquina
