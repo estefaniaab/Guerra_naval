@@ -5,10 +5,11 @@ import { getWeather, htmlClima } from "../utils/helpers.js"; // Importamos la fu
 import TableroUsuario  from "../models/tablero_usuario.js"
 import BarcoManager from "../models/barcoManager.js"
 import TableroMaquina from "../models/tablero_maquina.js";
+import Juego from "../models/juego.js";
 document.addEventListener("DOMContentLoaded", async function () {
     const usuario = document.getElementById("nombre-usuario")
     const bandera = document.getElementById("bandera-usuario") 
-
+    const inicar_juego=document.getElementById("iniciar_juego")
     const button = document.getElementById("generarBoton");
     const tamañoCasillas = document.getElementById("tamañoCasillas");
     //const tablero = document.getElementById("tablero")
@@ -20,13 +21,17 @@ document.addEventListener("DOMContentLoaded", async function () {
             // Calcula el tamaño de cada casilla según el tamaño del tablero, el tabalero es 500 px
             const tamañoCasilla = Math.floor(500 / tamaño);
             const barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
-            
             const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",barcoManager)
+            const juego= new Juego(tablero_usuario.tablero,tamaño)
             // Instanciar el tablero de la máquina
-            const tableroMaquina = new TableroMaquina(tamaño, "tableroMaquina");
-            
             document.getElementById("zonaBarcos").innerHTML = "";
             barcoManager.crearBarcos();
+
+        inicar_juego.addEventListener("click", function() {
+            juego.iniciarJuego(); // Inicia el juego al hacer clic en el botón
+        })
+            
+            
             //let miArray = crearArray(tamaño);
             //console.log(miArray);
             //hacerTablero(tamaño);
@@ -34,6 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             alert("El tamaño debe estar entre 10 y 20.");
         }
     });
+
 
     // Nombre usuario
     const nickname = localStorage.getItem("currentUser") // Sacamos la información del storage

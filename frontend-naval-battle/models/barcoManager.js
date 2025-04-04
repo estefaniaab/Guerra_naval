@@ -99,7 +99,9 @@ class BarcoManager {
           console.error(` No se puede colocar el barco en esta posición.`);
           barco.colocado=false;
           document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'flex';
-          this.zonaBarcos.appendChild(barco.elemento);
+          //this.zonaBarcos.appendChild(barco.elemento);
+          //remover el barco del tablero
+          tablero.tablero.removeChild(barco.elemento);
       }
   }
 
