@@ -1,4 +1,3 @@
-
 import TableroMaquina from "../models/tablero_maquina.js";
 
 class Juego {
@@ -17,6 +16,12 @@ class Juego {
       { df: 1, dc: 0}, //Abajo
       { df: -1, dc: 0} //Arriba
     ];
+  }
+
+  iniciarJuego() {
+    const tableroMaquina = new TableroMaquina(this.tamaño, "tableroMaquina");
+    this.tableroMaquina = tableroMaquina;
+    this.inicializarEventosClick();
   }
 
   inicializarEventosClick() {
