@@ -5,18 +5,9 @@ class Juego {
   constructor(tableroUsuario,tamaño) {
     this.tableroMaquina = null;
     this.tableroUsuario = tableroUsuario;
-    this.barcos = [];
     this.disparos = [];
-    this.turno = 0;
-    this.tamaño = tamaño;
-    
   }
 
-  iniciarJuego() {
-    const tableroMaquina = new TableroMaquina(this.tamaño, "tableroMaquina");
-    this.tableroMaquina = tableroMaquina;
-    this.inicializarEventosClick();
-  }
   inicializarEventosClick() {
     this.tableroMaquina.tablero.addEventListener("click", (e) => {
         if (e.target.classList.contains("celda")) {
