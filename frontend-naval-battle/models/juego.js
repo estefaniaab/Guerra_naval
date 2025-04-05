@@ -39,11 +39,6 @@ class Juego {
             console.log("Disparo Exitoso.");
             this.tableroMaquina.matriz[fila][columna] = "p2-h"; // Marca como acertado
             celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
-            //Verificamos si el barco fue hundido
-            const hundido = this.tableroMaquina.verificarBarcoHundido(fila, columna);
-            if (hundido) {
-              console.log("¡Hundiste un barco enemigo!");
-            }
         } else {
             console.log("Disparo Fallido.");
             this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
@@ -132,9 +127,6 @@ class Juego {
 
   
   disparoMaquinaInteligente() {
-    //mensaje por consola de que la maquina piensa
-    console.log("La maquina esta pensando ...");
-
     
     setTimeout(() => {
       //si acierta en el anterior disparo y el actual que siga validando por esa ruta
@@ -143,7 +135,7 @@ class Juego {
       } else {
         this.disparoRandom();
       }
-    },2000); //tiempo de espera de dos segundos para realizar la accion
+    },1000); //tiempo de espera de dos segundos para realizar la accion
   }
 
   seguirDireccion() {
