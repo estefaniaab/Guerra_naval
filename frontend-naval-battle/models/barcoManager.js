@@ -1,4 +1,5 @@
 import Barco from "./barco.js";
+import { alertaError } from "../utils/helpers.js";
 
 class BarcoManager {
   constructor(zonaBarcosId, tamañoCasilla) {
@@ -40,9 +41,10 @@ class BarcoManager {
       const columna= parseInt(event.target.dataset.columna);      
       //const columna = event.target.dataset.columna;
       if (isNaN(fila) || isNaN(columna)) { //Se realizo con NAN ya que si se deja como entero al colocar un 0 lo toma como true
-          console.error(" No se pudo determinar la celda de destino.");
+          alertaError("No se pudo determinar la celda de destino.");
+          //console.error(" No se pudo determinar la celda de destino.");
           barco.colocado=false;
-          document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'flex';
+          document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'block';
           return;
       }
 
@@ -96,12 +98,15 @@ class BarcoManager {
         console.log("Matriz después de colocar:", tablero.matriz);
         document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'none';
       } else {
-          console.error(` No se puede colocar el barco en esta posición.`);
+          alertaError("No se puede colocar el barco aquí. Espacio ocupado o fuera de límites.")
           barco.colocado=false;
-          document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'flex';
+          document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'block';
           //this.zonaBarcos.appendChild(barco.elemento);
           //remover el barco del tablero
-          tablero.tablero.removeChild(barco.elemento);
+          if (tablero.tablero.contains(barco.elemento)) {
+            tablero.tablero.removeChild(barco.elemento);
+          }
+          
       }
   }
 
