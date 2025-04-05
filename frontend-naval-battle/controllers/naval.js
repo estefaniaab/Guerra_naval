@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const tamañoCasilla = Math.floor(500 / tamaño);
             const barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
             const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",barcoManager)
-            const juego= new Juego(tablero_usuario.tablero,tamaño)
+            const juego= new Juego(tablero_usuario,tamaño)
             // Instanciar el tablero de la máquina
             document.getElementById("zonaBarcos").innerHTML = "";
             barcoManager.crearBarcos();
