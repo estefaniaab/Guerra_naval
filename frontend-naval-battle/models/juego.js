@@ -180,5 +180,47 @@ class Juego {
 
   }
 
+  devolverExportacionMapa() {
+    // Mostrarlo en consola
+    console.log("Tablero usuario:")
+    console.table(this.tableroUsuario.matriz)
+    console.log("Tablero maquina:")
+    console.table(this.tableroMaquina.matriz)
+
+    // Proceso para descargarlo
+    const datos = {
+      mapaUsuario: this.tableroUsuario.matriz,
+      mapaMaquina: this.tableroMaquina.matriz,
+      convencion: {
+        p1: "Barco del jugador",
+        "p1-h": "Barco del jugador herido",
+        p2: "Barco de la maquina",
+        "p2-h": "Barco de la maquina herida",
+        a: "agua",
+        b: "Intento fallido",
+      }
+    }
+    // Convertirlo el objeto a JSON, 
+    const jsonString = JSON.stringify(datos, null, 2)
+
+    // Crear archivo virutal "blob" con el JSON
+    const blob = new Blob([jsonString], {type: "application/json" })
+
+    // Generar enlace temporal para descargar
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a") // Crear un link
+    a.href = url; // Se le asigna el link
+    a.download = 'mapas-batalla-naval.json' //Nombre archivo
+
+    // Auto iniciar descarga
+    a.click()
+
+    // Liberar el objeto URL
+    URL.revokeObjectURL(url)
+
+
+
+  }
+
 }
 export default Juego;
