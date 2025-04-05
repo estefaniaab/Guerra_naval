@@ -40,7 +40,11 @@ class Juego {
             console.log("Disparo Exitoso.");
             this.tableroMaquina.matriz[fila][columna] = "p2-h"; // Marca como acertado
             celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
-        
+            //Verificamos si el barco fue hundido
+            const hundido = this.tableroMaquina.verificarBarcoHundido(fila, columna);
+            if (hundido) {
+              console.log("¡Hundiste un barco enemigo!");
+            }
         } else {
             console.log("Disparo Fallido.");
             this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
