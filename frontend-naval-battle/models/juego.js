@@ -46,6 +46,9 @@ class Juego {
             this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
             celda.innerHTML = `<img src="../../assets/agua.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
         }
+
+        //turno de la maquina
+        this.disparoMaquinaInteligente();
     }
 
   //valida si la celda esta dentro de los limites del tablero
@@ -58,7 +61,7 @@ class Juego {
     const dirs = [...this.direcciones];
     for (let i = dirs.length -1; i>0; i--) {
       const j = Math.floor(Math.random()*(i+1));
-      [dirs[i], dirs[j] = dirs[j], dirs[i]];
+      [dirs[i], dirs[j]] = [dirs[j], dirs[i]];
     }
     //si acierta la nueva opcion de disparo sera basada en una direccion pegada a la ultima
     for (const dir of dirs) {
@@ -101,11 +104,12 @@ class Juego {
     }
   }
 
-  //almacena una posicion si contiene "a" o "p1"
+  
   disparoRandom() {
+    //almacena una posicion si contiene "a" o "p1"
     const posibles = []
 
-    for (let f=0; f>this.tamaño; f++){
+    for (let f=0; f<this.tamaño; f++){
       for (let c=0; c<this.tamaño; c++) {
         const val = this.tableroUsuario.matriz[f][c];
         if (val === "a" || val === "p1") {
@@ -122,5 +126,17 @@ class Juego {
     this.realizarDisparoMaquina(fila, columna);
 
   }
+
+  
+  disparoMaquinaInteligente() {
+    //mensaje por consola de que la maquina piensa
+    console.log("La maquina esta pensando ...");
+
+    //tiempo de espera de dos segundos para realizar la accion
+    setTimeout(() => {
+      this.disparoRandom();
+    },2000);
+  }
+
 }
 export default Juego;
