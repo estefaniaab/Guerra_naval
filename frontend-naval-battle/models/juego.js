@@ -76,11 +76,29 @@ class Juego {
     return null;
 
   }
-  
+
   //si ya no hay direcciones validas o si la maquina falla para reinicar las direcciones
   resetDireccion() {
     this.ultimoAcierto = null;
     this.direccionActual = null;
+  }
+
+  realizarDisparoMaquina(fila,columna) {
+    const val = this.tableroUsuario.matriz[fila][columna];
+    const celda = this.tableroUsuario.tablero.querySelector(
+      `.celda[data-fila="${fila}"][data-columna="${columna}"]`
+    );
+
+    if (val === "p1") { //si acierta cambiar el valor de la posicion por p1-h
+      this.tableroUsuario.matriz[fila][columna] = "p1-h"
+      celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
+      this.ultimoAcierto = {fila, columna};
+      this.direccionActual = this.direccionRandom();
+    } else { //si falla cambiar el valor de la posicion por b
+      this.tableroUsuario.matriz[fila][columna] = "b"
+      celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;
+      this.resetDireccion();
+    }
   }
 
 }
