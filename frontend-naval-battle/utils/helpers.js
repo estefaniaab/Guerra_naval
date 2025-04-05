@@ -87,3 +87,12 @@ export function generarTableroGenerico(contenedor, tamaño, claseCelda = "celda"
       }
   }
 }
+export function alertaError(mensaje){
+  Swal.fire({
+    icon: 'error',
+    title: 'Error',
+    text: mensaje,
+    timer: 2000, // Cierra automáticamente después de 2 segundos
+    showConfirmButton: false
+});
+}
