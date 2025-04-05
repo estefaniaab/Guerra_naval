@@ -132,10 +132,49 @@ class Juego {
     //mensaje por consola de que la maquina piensa
     console.log("La maquina esta pensando ...");
 
-    //tiempo de espera de dos segundos para realizar la accion
+    
     setTimeout(() => {
-      this.disparoRandom();
-    },2000);
+      //si acierta en el anterior disparo y el actual que siga validando por esa ruta
+      if (this.ultimoAcierto && this.direccionActual) {
+        this.seguirDireccion();
+      } else {
+        this.disparoRandom();
+      }
+    },2000); //tiempo de espera de dos segundos para realizar la accion
+  }
+
+  seguirDireccion() {
+    //usa la ultima posicion acertada, usa la misma direccion y revisa la nueva posicion 
+    const { fila, columna } = this.ultimoAcierto;
+    const { df, dc} = this.direccionActual;
+
+    const nuevaFila = fila + df;
+    const nuevaColumna = columna + dc;
+
+    //valida limite del tablero
+    if (!this.esValida(nuevaFila, nuevaColumna)) {
+      this.resetDireccion();
+      this.disparoMaquinaInteligente();
+      return;
+    }
+
+    const val = this.tableroUsuario.matriz[nuevaFila][nuevaColumna];
+    const celda = this.tableroUsuario.tablero.querySelector(
+      `.celda[data-fila="${nuevaFila}"][data-columna="${nuevaColumna}"]`
+    );
+
+    if (val === "p1") {
+      this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "p1-h";
+      celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
+      this.ultimoAcierto = { fila: nuevaFila, columna: nuevaColumna };
+    } else if (val === "a") { //si encuentra agua para el seguimiento de la direccion
+      this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "b";
+      celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;
+      this.resetDireccion();
+    } else {
+      this.resetDireccion();
+    }
+
   }
 
 }
