@@ -101,5 +101,26 @@ class Juego {
     }
   }
 
+  //almacena una posicion si contiene "a" o "p1"
+  disparoRandom() {
+    const posibles = []
+
+    for (let f=0; f>this.tamaño; f++){
+      for (let c=0; c<this.tamaño; c++) {
+        const val = this.tableroUsuario.matriz[f][c];
+        if (val === "a" || val === "p1") {
+          posibles.push ({ fila: f, columna: c});
+        }
+      }
+    }
+
+    //si no hay opciones termina
+    if (posibles.length === 0) return;
+
+    //elige una posicion alaetoria dentro de las posibles y dispara
+    const { fila, columna } = posibles[Math.floor(Math.random() * posibles.length)];
+    this.realizarDisparoMaquina(fila, columna);
+
+  }
 }
 export default Juego;
