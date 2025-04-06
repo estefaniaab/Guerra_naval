@@ -1,4 +1,5 @@
 import TableroMaquina from "../models/tablero_maquina.js";
+import { puntajeUsuario } from "../utils/helpers.js";
 
 
 class Juego {
@@ -258,6 +259,12 @@ class Juego {
   verificarFinDelJuego() {
     if (this.tableroMaquina.barcosHundidosMaquina === 6) {
       alert("¡Felicidades, ganaste!");
+      const usuarioBackend = this.usuario.toBackendFormat()
+      if (!puntajeUsuario(usuarioBackend)) {
+        alert("Problemas en el paraiso")
+      } else {
+        console.log("Todo nice");
+      }
     } else if (this.tableroUsuario.barcosHundidosUsuario === 6) {
       alert("La máquina ha ganado, ¡intenta de nuevo!");
     }

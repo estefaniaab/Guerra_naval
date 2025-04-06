@@ -114,3 +114,19 @@ export function alertaError(mensaje){
 });
 }
 
+export async function puntajeUsuario(usuarioBackend) {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/score-recorder", {
+        method: "POST", // El metodo que se pide desde el backend
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(usuarioBackend) // Se manda la información en string de la función toBackendFormat()
+    })
+    
+    return response.ok
+
+    } catch (error) {
+        console.error("Error en registrarPuntajeUsuario:", error)
+        return false
+    }
+}
+
