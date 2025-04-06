@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     if (tipoClima && window.Weather) {
         const climaVisual = new Weather({
-        type: "cloud",
+        type: tipoClima,
         container: contenedorClima,
         });
         climaVisual.start();
