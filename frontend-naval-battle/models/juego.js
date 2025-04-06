@@ -40,11 +40,12 @@ class Juego {
             console.log("Disparo Exitoso.");
             this.tableroMaquina.matriz[fila][columna] = "p2-h"; // Marca como acertado
             celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
+            this.tableroMaquina.verificarBarcoHundido(fila,columna);
             this.usuario.addScore(10)
         } else {
           // Disparo fallido
           this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
-          celda.innerHTML = `<img src="../../assets/agua.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
+          celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
 
           // Verificar cuantos puntos pierde por adhacencia 
           const barcosCerca = this.hayBarcoAdyacente(fila, columna, this.tableroMaquina.matriz, this.tamaño)
