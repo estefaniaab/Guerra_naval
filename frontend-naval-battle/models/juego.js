@@ -19,6 +19,8 @@ class Juego {
       { df: 1, dc: 0}, //Abajo
       { df: -1, dc: 0} //Arriba
     ];
+
+    this.turnoUsuario = true;
   }
 
   iniciarJuego() {
@@ -30,6 +32,7 @@ class Juego {
 
   inicializarEventosClick() {
     this.tableroMaquina.tablero.addEventListener("click", (e) => {
+        if (!this.turnoUsuario) return;
         if (e.target.classList.contains("celda")) {
             const fila = parseInt(e.target.dataset.fila);
             const columna = parseInt(e.target.dataset.columna);
@@ -66,6 +69,7 @@ class Juego {
           }
 
         }
+        this.turnoUsuario = false;
         console.log(this.usuario.score);
         
          this.disparoMaquinaInteligente();
@@ -145,6 +149,7 @@ class Juego {
       this.resetDireccion();
       setTimeout(() => {
         alertaTurno("Usuario");
+        this.turnoUsuario = true;
       }, 1000);
     }
   }
@@ -219,6 +224,7 @@ class Juego {
       celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;
       this.resetDireccion();
       alertaTurno("Usuario");
+      this.turnoUsuario = true;
     } else {
       this.resetDireccion();
     }
