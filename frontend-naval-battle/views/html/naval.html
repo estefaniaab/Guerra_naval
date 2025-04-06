@@ -7,10 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/frontend-naval-battle/views/css/naval.css">
     
-</head>
-</html>
+  </head>
+
   <body>
-    <div class="container-fluid text-center mt-3 px-o">
+    <div class="container-fluid text-center mt-3 px-o" id="contenedorClima">
       <!-- Fila superior: Avatar, nombre y clima -->
       <div class="row mb-3 align-items-center">
         <div class="col-2">
@@ -57,7 +57,7 @@
           <h2>Zona Barcos</h2>
           <div id="zonaBarcos"></div>
         </div>
-       
+      
         <div class="col-12 col-md-9 col-lg-5 col-sm-12 tablero-container">
           <h2>Tablero Máquina</h2>
           <div class="tablero" id="tableroMaquina"></div>
@@ -68,8 +68,9 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/frontend-naval-battle/libs/weather-effects/weather-effects.min.js"></script>
     <script type="module" src="/frontend-naval-battle/controllers/naval.js"></script>
-    <script type="module" src="/frontend-naval-battle/models/tablero_maquina.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="/frontend-naval-battle/models/tablero_maquina.js"></script>    
+
   </body>
 </html>

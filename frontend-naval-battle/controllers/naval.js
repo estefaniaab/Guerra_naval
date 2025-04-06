@@ -7,6 +7,18 @@ import BarcoManager from "../models/barcoManager.js";
 import TableroMaquina from "../models/tablero_maquina.js";
 import Juego from "../models/juego.js";
 document.addEventListener("DOMContentLoaded", async function () {
+    const contenedorClima = document.getElementById('contenedorClima');
+
+    if (contenedorClima && window.Weather) {
+        const clima = new window.Weather({
+        type: 'rain',
+        container: contenedorClima,
+        });
+        clima.start();
+    } else {
+        console.error('No se encontró el contenedor o Weather no está definido.');
+    }
+    
     const usuario = document.getElementById("nombre-usuario")
     const bandera = document.getElementById("bandera-usuario") 
     const inicar_juego=document.getElementById("iniciar_juego")
