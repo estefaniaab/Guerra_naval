@@ -1,12 +1,12 @@
 import TableroMaquina from "../models/tablero_maquina.js";
 
+
 class Juego {
   constructor(tableroUsuario,tamaño, usuario) {
     this.usuario = usuario
     this.tableroMaquina = null;
     this.tableroUsuario = tableroUsuario;
     this.disparos = [];
-    this.turno = 0;
     this.tamaño = tamaño;
 
     this.ultimoAcierto = null;
@@ -42,6 +42,7 @@ class Juego {
             celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
             this.tableroMaquina.verificarBarcoHundido(fila,columna);
             this.usuario.addScore(10)
+            this.registrarDisparo();
         } else {
           // Disparo fallido
           this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
@@ -126,8 +127,10 @@ class Juego {
     if (val === "p1") { //si acierta cambiar el valor de la posicion por p1-h
       this.tableroUsuario.matriz[fila][columna] = "p1-h"
       celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
+      this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
       this.ultimoAcierto = {fila, columna};
       this.direccionActual = this.direccionRandom();
+      this.disparoMaquinaInteligente();
     } else { //si falla cambiar el valor de la posicion por b
       this.tableroUsuario.matriz[fila][columna] = "b"
       celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;
@@ -195,6 +198,8 @@ class Juego {
       this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "p1-h";
       celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
       this.ultimoAcierto = { fila: nuevaFila, columna: nuevaColumna };
+      this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
+      this.disparoMaquinaInteligente();
     } else if (val === "a") { //si encuentra agua para el seguimiento de la direccion
       this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "b";
       celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;

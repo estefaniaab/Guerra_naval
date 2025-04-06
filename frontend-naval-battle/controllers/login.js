@@ -1,15 +1,10 @@
 // Importaciones
 import { User } from "../models/user.js"
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
     let countries = document.getElementById("paises") // Accedemos a la componente del html
-    let battleFields = document.getElementById("battle-fields") // Accedemos al del battle-fields
     let cambioPagina = document.getElementById("cambioPagina"); //Accedemos al id de cambio de pagina
     let cambioRanking = document.getElementById("cambioRanking") 
-    let battleFieldsList = [] // Variable global
-
 
     /**
      * En esta función llamamos al backend para recibir la lista de paises que puede seleccionar el usuario
@@ -33,25 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
         .catch(error => console.error("Error al obtener los paises: ", error))
     }
 
-    function listBattleFields() {
-        fetch("/frontend-naval-battle/assets/data/battle_field.json")
-        .then(response => response.json()) // Se convierte JSON
-        .then(data => {
-            battleFieldsList = data["campos_batalla_navales"] // Devuelve la lista
-            console.log("log battlefieldJSON" , battleFieldsList)
-            
-            battleFields.innerHTML = ""; // Se limpia
-            battleFields.innerHTML += `<option value="placeholder">Seleccione una zona de guerra</option>`            
-            battleFieldsList.forEach(battleField => {               
-                let code = battleField.id  // Extrae la clave de cada zona de guerra
-                let name = battleField.nombre // Extrae el valor
-                let selector = `<option value="${code}">${name}</option>`
-                battleFields.innerHTML += selector
-            })
-        })
-        .catch(error => console.error("Error al obtener los campos de batalla: ", error))
-    }
- 
     /**
      * En esta función verificamos si el botón fue oprimido para hacer un cambio de pagina si cumple con las verificaciones claro
      */
@@ -60,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
         cambioPagina.addEventListener("click", function(event) { // Volvemos la función asincrona para que espere el resultado de verificacionCambioPagina
             event.preventDefault()
             // Llamamos verificaciones y le mandamos la nueva pagina target, en este caso, naval.html
-            verificacionCambioPagina("naval.html")
+            verificacionCambioPagina("informacionBatallas.html")
             
         })
         cambioRanking.addEventListener("click", async function(event) {
@@ -78,21 +54,6 @@ document.addEventListener("DOMContentLoaded", function() {
     async function verificacionCambioPagina(target) {
         const nickname = document.getElementById("nickname").value // Se saca el valor del html
         const pais = countries.value // Se saca el valor del selector del pais
-        let batteField = {}
-        const battleFieldId = battleFields.value 
-        console.log(battleFieldId)
-        
-
-
-        if (!battleFieldId) {
-            console.error("No se selecciono el campo de batalla")
-            alert("No se selecciono la zona de guerra")
-
-        } else {
-            console.log("log battlefieldJSON" , battleFieldsList)
-            batteField = battleFieldsList.find(field => field.id == battleFieldId)
-            console.log(batteField)
-        }
         
         // Validar campos
         if (nickname === "" || !pais || pais === "placeholder") { // Si no hay nombre o no hay pais o no ha seleccionado pais
@@ -112,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
       
             if (success) { // Si se pudo crear el usuario
                 localStorage.setItem("currentUser", nickname) // Guardamos en localStorage, que puede servir despues para naval
-                localStorage.setItem("battleField", JSON.stringify(batteField)) // Guardamos en localStorage, que puede servir despues para naval
                 localStorage.setItem("flagUser", pais) // También guardamos el pais que escogío 
                 window.location.href = target //Redireccionamos a la pagina target
             } else {
@@ -153,6 +113,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //Llamado a la función
     listarPaises()
-    listBattleFields()
     changePage()
 })
