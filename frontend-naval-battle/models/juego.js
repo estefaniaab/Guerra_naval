@@ -1,7 +1,8 @@
 import TableroMaquina from "../models/tablero_maquina.js";
 
 class Juego {
-  constructor(tableroUsuario,tamaño) {
+  constructor(tableroUsuario,tamaño, usuario) {
+    this.usuario = usuario
     this.tableroMaquina = null;
     this.tableroUsuario = tableroUsuario;
     this.disparos = [];
@@ -39,15 +40,46 @@ class Juego {
             console.log("Disparo Exitoso.");
             this.tableroMaquina.matriz[fila][columna] = "p2-h"; // Marca como acertado
             celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
+            this.usuario.addScore(10)
         } else {
-            console.log("Disparo Fallido.");
-            this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
-            celda.innerHTML = `<img src="../../assets/agua.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
-        }
+          // Disparo fallido
+          this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
+          celda.innerHTML = `<img src="../../assets/agua.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
 
+          // Verificar cuantos puntos pierde por adhacencia 
+          const barcosCerca = this.hayBarcoAdyacente(fila, columna, this.tableroMaquina.matriz, this.tamaño)
+
+          if (barcosCerca) {  // Se restan 3 si esta cerca, se resta 1 si no
+            console.log("Disparo fallido, pierde 3 puntos")
+            this.usuario.addScore(-3)
+          } else {
+            console.log("Disparo fallido, pierde 1 punto")
+            this.usuario.addScore(-1)
+          }
+
+        }
+        console.log(this.usuario.score);
+        
         //turno de la maquina
         this.disparoMaquinaInteligente();
     }
+  hayBarcoAdyacente(fila, columna, tablero, tamaño) {
+    const adyacentes = [
+      [fila-1, columna], [fila+1, columna],  // Arriba, abajo
+      [fila, columna-1], [fila, columna+1], // Izquierda, Derecha
+      [fila-1, columna-1], [fila-1, columna+1], // Esquina Superior izquierda, esquina superior derecha
+      [fila+1, columna-1], [fila+1, columna+1], // Esquina inferior izquierda, esquina inferior derecha
+    ]
+    // Recorremos los posibles adyacentes para verificar que si esten dentro del rango permitido
+    for (let [f,c] of adyacentes) {
+      if (this.esValida(f, c)) {
+        if (tablero[f][c] === "p2" || tablero[f][c] === "p2-h"){ // Si es un barco normal o herido
+          return true
+        }
+      }
+    }
+    return false
+  }
 
   //valida si la celda esta dentro de los limites del tablero
   esValida(fila, columna) {
