@@ -36,6 +36,18 @@ export async function getWeather(latitude, longitude, campoBatalla) {
     }
   );
 }
+
+export function alertaTurno(turno) {
+  Swal.fire({
+    title: `Turno de ${turno}`,
+    icon: 'info',
+    timer: 1200,
+    showConfirmButton: false,
+    toast: true,
+    position: 'top-end',
+    timerProgressBar: true,
+  });
+}
 /** Aqui practicamente creamos los elementos HTML para mostrar la información del clima
  * 
  * @param {*} climaElement Es la variable que se le asigno al html
@@ -109,6 +121,7 @@ export function alertaError(mensaje){
     icon: 'error',
     title: 'Error',
     text: mensaje,
+    backdrop: false,
     timer: 2000, // Cierra automáticamente después de 2 segundos
     showConfirmButton: false
 });

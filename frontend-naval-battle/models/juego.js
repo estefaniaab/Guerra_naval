@@ -1,5 +1,6 @@
 import TableroMaquina from "../models/tablero_maquina.js";
 import { puntajeUsuario } from "../utils/helpers.js";
+import { alertaTurno } from "../utils/helpers.js";
 
 
 class Juego {
@@ -24,6 +25,7 @@ class Juego {
     const tableroMaquina = new TableroMaquina(this.tamaño, "tableroMaquina");
     this.tableroMaquina = tableroMaquina;
     this.inicializarEventosClick();
+    alertaTurno("Usuario");
   }
 
   inicializarEventosClick() {
@@ -37,6 +39,7 @@ class Juego {
     });
   }
     registrarDisparo(fila, columna,celda) {
+      
         if (this.tableroMaquina.matriz[fila][columna] == "p2") {
             console.log("Disparo Exitoso.");
             this.tableroMaquina.matriz[fila][columna] = "p2-h"; // Marca como acertado
@@ -45,11 +48,12 @@ class Juego {
             this.usuario.addScore(10)
             this.verificarFinDelJuego();
             this.registrarDisparo();
+            alertaTurno("Usuario");
         } else {
           // Disparo fallido
           this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
           celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
-
+          alertaTurno("Maquina");
           // Verificar cuantos puntos pierde por adhacencia 
           const barcosCerca = this.hayBarcoAdyacente(fila, columna, this.tableroMaquina.matriz, this.tamaño)
 
@@ -64,8 +68,8 @@ class Juego {
         }
         console.log(this.usuario.score);
         
-        //turno de la maquina
-        this.disparoMaquinaInteligente();
+         this.disparoMaquinaInteligente();
+        
     }
   hayBarcoAdyacente(fila, columna, tablero, tamaño) {
     const adyacentes = [
@@ -133,11 +137,15 @@ class Juego {
       this.ultimoAcierto = {fila, columna};
       this.direccionActual = this.direccionRandom();
       this.verificarFinDelJuego();
+      
       this.disparoMaquinaInteligente();
     } else { //si falla cambiar el valor de la posicion por b
       this.tableroUsuario.matriz[fila][columna] = "b"
       celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;
       this.resetDireccion();
+      setTimeout(() => {
+        alertaTurno("Usuario");
+      }, 1000);
     }
   }
 
@@ -174,7 +182,7 @@ class Juego {
       } else {
         this.disparoRandom();
       }
-    },1000); //tiempo de espera de dos segundos para realizar la accion
+    },2000); //tiempo de espera de dos segundos para realizar la accion
   }
 
   seguirDireccion() {
@@ -203,11 +211,14 @@ class Juego {
       this.ultimoAcierto = { fila: nuevaFila, columna: nuevaColumna };
       this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
       this.verificarFinDelJuego();
-      this.disparoMaquinaInteligente();
+      
+      setTimeout(() => this.disparoMaquinaInteligente(), 1000);
     } else if (val === "a") { //si encuentra agua para el seguimiento de la direccion
+      
       this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "b";
       celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;
       this.resetDireccion();
+      alertaTurno("Usuario");
     } else {
       this.resetDireccion();
     }
