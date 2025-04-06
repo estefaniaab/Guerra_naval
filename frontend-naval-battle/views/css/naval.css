@@ -129,9 +129,10 @@
 /* PARTES DEL CLIMA */
 .clima-contenedor {
     display: inline-block;
-    text-align: right;
-    max-width: 100%;
-    margin-left: auto;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 250px;
 }
 
 .clima-titulo {
@@ -168,4 +169,45 @@
     height: 50px;
     margin: 5px auto 0;
     display: block;
+}
+
+/*... Todo tu CSS anterior permanece igual... */
+@media (max-width: 768px) {
+    #contenedorClima {
+        margin: auto;
+        text-align: center;
+        display: inline-block;
+        float: none;
+    }
+
+    #contenedorClima .col-2,
+    #contenedorClima .col-6,
+    #contenedorClima .col-4 {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+
+    .bandera-usuario {
+        margin: 0 auto;
+    }
+
+    .nombre-usuario {
+        font-size: 1.1rem;
+        padding: 8px;
+        margin: 0 auto;
+        width: fit-content;
+    }
+
+    .clima-contenedor {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .clima-titulo h4 {
+        font-size: 1.2rem;
+    }
+
+    .weather-info {
+        text-align: center;
+    }
 }
