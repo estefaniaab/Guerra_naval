@@ -1,4 +1,5 @@
 import TableroMaquina from "../models/tablero_maquina.js";
+import TableroUsuario from "../models/tablero_usuario.js";
 
 class Juego {
   constructor(tableroUsuario,tamaño, usuario) {
@@ -126,6 +127,7 @@ class Juego {
     if (val === "p1") { //si acierta cambiar el valor de la posicion por p1-h
       this.tableroUsuario.matriz[fila][columna] = "p1-h"
       celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
+      this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
       this.ultimoAcierto = {fila, columna};
       this.direccionActual = this.direccionRandom();
     } else { //si falla cambiar el valor de la posicion por b
@@ -195,6 +197,7 @@ class Juego {
       this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "p1-h";
       celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
       this.ultimoAcierto = { fila: nuevaFila, columna: nuevaColumna };
+      this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
     } else if (val === "a") { //si encuentra agua para el seguimiento de la direccion
       this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "b";
       celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;
