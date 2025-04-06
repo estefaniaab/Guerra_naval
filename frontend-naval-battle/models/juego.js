@@ -42,6 +42,7 @@ class Juego {
             celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
             this.tableroMaquina.verificarBarcoHundido(fila,columna);
             this.usuario.addScore(10)
+            this.verificarFinDelJuego();
             this.registrarDisparo();
         } else {
           // Disparo fallido
@@ -130,6 +131,7 @@ class Juego {
       this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
       this.ultimoAcierto = {fila, columna};
       this.direccionActual = this.direccionRandom();
+      this.verificarFinDelJuego();
       this.disparoMaquinaInteligente();
     } else { //si falla cambiar el valor de la posicion por b
       this.tableroUsuario.matriz[fila][columna] = "b"
@@ -199,6 +201,7 @@ class Juego {
       celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
       this.ultimoAcierto = { fila: nuevaFila, columna: nuevaColumna };
       this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
+      this.verificarFinDelJuego();
       this.disparoMaquinaInteligente();
     } else if (val === "a") { //si encuentra agua para el seguimiento de la direccion
       this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "b";
@@ -250,6 +253,14 @@ class Juego {
 
 
 
+  }
+
+  verificarFinDelJuego() {
+    if (this.tableroMaquina.barcosHundidosMaquina === 6) {
+      alert("¡Felicidades, ganaste!");
+    } else if (this.tableroUsuario.barcosHundidosUsuario === 6) {
+      alert("La máquina ha ganado, ¡intenta de nuevo!");
+    }
   }
 
 }
