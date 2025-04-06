@@ -33,7 +33,7 @@ class TableroMaquina{
 
      //se colocan los barcos en la matriz
      colocarBarcos() {
-        let tamañoBarcos = [2, 3, 4, 5];
+        let tamañoBarcos = [2, 2, 3, 3, 4, 5];
         let direcciones = this.direcciones; 
           
         for (let tam of tamañoBarcos) {
@@ -128,12 +128,13 @@ class TableroMaquina{
             //se revisa para la derecha y hacia abajo, se detiene si sale del limite o si es "a" o "b"
             //y se guarda la posicion
             while (true) {
-                let f = fila + df * i
+                let f = fila + df * i;
                 let c = columna + dc * i;
-                if (!this.esValida(f, c, this.tamaño)) 
-                    break;
-                if (this.matriz[f][c] !== "p2" && this.matriz[f][c] !== "p2-h") 
-                    break;
+                if (!this.esValida(f, c, this.tamaño)) break;
+    
+                let valor = this.matriz[f][c];
+                if (valor !== "p2" && valor !== "p2-h") break;
+    
                 celdas.push({ fila: f, columna: c });
                 i++;
             }
@@ -142,22 +143,22 @@ class TableroMaquina{
             //y se guarda la posicion
             i = 1;
             while (true) {
-                let f = fila - df * i
+                let f = fila - df * i;
                 let c = columna - dc * i;
-                if (!this.esValida(f, c, this.tamaño)) 
-                    break;
-                if (this.matriz[f][c] !== "p2" && this.matriz[f][c] !== "p2-h") 
-                    break;
+                if (!this.esValida(f, c, this.tamaño)) break;
+    
+                let valor = this.matriz[f][c];
+                if (valor !== "p2" && valor !== "p2-h") break;
+    
                 celdas.push({ fila: f, columna: c });
                 i++;
             }
             // revisa si todas las celdas del barco han sido impactadas
-            const hundido = celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p2-h");
-            if (hundido) {
+            if (celdas.length > 1 && celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p2-h")) {
                 this.barcosHundidos += 1;
                 console.log("¡Barco de la máquina hundido! Total:", this.barcosHundidos);
                 return true;
-            } 
+            }
         }
         return false;
     }
