@@ -4,9 +4,17 @@ class TableroMaquina{
         this.tamaño=tamaño;
         this.tablero=document.getElementById(id);
         this.matriz=this.crearMatriz();
+        this.barcosHundidos=0;
+        
+        this.direcciones = [
+            { df: 0, dc: 1 },  // Derecha
+            { df: 0, dc: -1 }, // Izquierda
+            { df: 1, dc: 0 },  // Abajo
+            { df: -1, dc: 0 }  // Arriba
+        ];    
+
         this.inicializarMatrizconBarcos();
         this.generarTablero();
-        
     }
     crearMatriz() {
         return Array.from({ length: this.tamaño }, () => Array(this.tamaño).fill("a"));
@@ -23,17 +31,11 @@ class TableroMaquina{
         }
     }
 
-   
-
      //se colocan los barcos en la matriz
      colocarBarcos() {
-        let tamañoBarcos = [2, 2, 3, 3, 4, 5]; 
-        let direcciones = [
-            { df: 0, dc: 1 },  // Derecha
-            { df: 0, dc: -1 }, // Izquierda
-            { df: 1, dc: 0 },  // Abajo
-            { df: -1, dc: 0 }  // Arriba
-        ];    
+        let tamañoBarcos = [2, 3, 4, 5];
+        let direcciones = this.direcciones; 
+          
         for (let tam of tamañoBarcos) {
             let intentos = 10;
             let colocado = false;
@@ -113,6 +115,52 @@ class TableroMaquina{
 
         return array;
     }    
+
+    verificarBarcoHundido(fila,columna) {
+        // se valida solo cuando hay un p2-h ya que si no hay impactos nos hay barcos hundidos
+        if (this.matriz[fila][columna] !== "p2-h") 
+            return false;
+        // se recorre el array y se crea uno que comienza desde el impacto
+        for (let { df,dc } of this.direcciones) {
+            let celdas = [{ fila,columna }];
+            let i = 1;
+
+            //se revisa para la derecha y hacia abajo, se detiene si sale del limite o si es "a" o "b"
+            //y se guarda la posicion
+            while (true) {
+                let f = fila + df * i
+                let c = columna + dc * i;
+                if (!this.esValida(f, c, this.tamaño)) 
+                    break;
+                if (this.matriz[f][c] !== "p2" && this.matriz[f][c] !== "p2-h") 
+                    break;
+                celdas.push({ fila: f, columna: c });
+                i++;
+            }
+
+            //se revisa para la izquierda y hacia arriba, se detiene si sale del limite o si es "a" o "b"
+            //y se guarda la posicion
+            i = 1;
+            while (true) {
+                let f = fila - df * i
+                let c = columna - dc * i;
+                if (!this.esValida(f, c, this.tamaño)) 
+                    break;
+                if (this.matriz[f][c] !== "p2" && this.matriz[f][c] !== "p2-h") 
+                    break;
+                celdas.push({ fila: f, columna: c });
+                i++;
+            }
+            // revisa si todas las celdas del barco han sido impactadas
+            const hundido = celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p2-h");
+            if (hundido) {
+                this.barcosHundidos += 1;
+                console.log("¡Barco de la máquina hundido! Total:", this.barcosHundidos);
+                return true;
+            } 
+        }
+        return false;
+    }
 
 }   
 
