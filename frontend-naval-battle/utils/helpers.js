@@ -19,7 +19,7 @@ export async function getWeather(latitude, longitude, campoBatalla) {
           console.log(data);
           const weatherData = {
             tempCelsius: (data.main.temp - 273.15).toFixed(1), // Temperatura convertida a celsius, el fixed retorna string con la cantidad de numeros explicitos de decimal
-            climaDesc: data.weather[0].description, // Retorna la descripción
+            climaDesc: data.weather[0].main, // Retorna la descripción
             iconUrl: `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`, // El icono de la descrición
             humidity: data.main.humidity, // La humedad
             windSpeed: data.wind.speed, //Velocidad del viendo
