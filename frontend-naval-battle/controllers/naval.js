@@ -1,5 +1,5 @@
 // Importaciones
-import { getWeather, htmlClima } from "../utils/helpers.js"; // Importamos la función de sacar el clima de helpers
+import { alertaError, getWeather, htmlClima } from "../utils/helpers.js"; // Importamos la función de sacar el clima de helpers
 
 //se obtienen los diferentes elementos
 import TableroUsuario from "../models/tablero_usuario.js";
@@ -16,20 +16,27 @@ document.addEventListener("DOMContentLoaded", async function () {
     const tableroElement = document.getElementById("tableroUsuario"); // O el ID correcto del tablero
     //const tablero = document.getElementById("tablero")
     //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
+    window.barcoManager = null;
+    let juego = null;
     button.addEventListener("click", () => {
         const tamaño = parseInt(tamañoCasillas.value);
-        if (tamaño >= 10 && tamaño <= 20) {
-            const tamañoTablero = tableroElement.offsetWidth
-            // Calcula el tamaño de cada casilla según el tamaño del tablero, el tabalero es 500 px
-            const tamañoCasilla = Math.floor(tamañoTablero / tamaño);
-            const barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
-            const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",barcoManager)
-            const juego= new Juego(tablero_usuario,tamaño)
-            // Instanciar el tablero de la máquina
-            document.getElementById("zonaBarcos").innerHTML = "";
-            barcoManager.crearBarcos();
+        if (tamaño < 10 || tamaño > 20) {
+            alertaError("El tamaño debe estar entre 10 y 20.")
+            return
+        }
+        document.getElementById("zonaBarcos").innerHTML = "";
+        const tamañoTablero = tableroElement.offsetWidth
+        // Calcula el tamaño de cada casilla según el tamaño del tablero, el tabalero es 500 px
+        const tamañoCasilla = Math.floor(tamañoTablero / tamaño);
+        window.barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
+        const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",window.barcoManager)
+        window.barcoManager.crearBarcos();
+        juego= new Juego(tablero_usuario,tamaño)
+        // Instanciar el tablero de la máquina
+        
+        
 
-      inicar_juego.addEventListener("click", function () {
+        inicar_juego.addEventListener("click", function () {
         juego.iniciarJuego(); // Inicia el juego al hacer clic en el botón
       });
 
@@ -42,10 +49,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       //let miArray = crearArray(tamaño);
       //console.log(miArray);
       //hacerTablero(tamaño);
-    } else {
-      alert("El tamaño debe estar entre 10 y 20.");
-    }
-  });
+    } );
 
   // Nombre usuario
   const nickname = localStorage.getItem("currentUser"); // Sacamos la información del storage
@@ -89,6 +93,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.error("Error al obtener el clima: ", error);
   }
 });
+
+window.addEventListener("resize", () => {
+    const tableroElement = document.getElementById("tableroUsuario");
+    if (!tableroElement) return;
+    // Si usas la variable CSS '--grid-tamaño', obténla o define el número de celdas (por ejemplo, 10 o el valor ingresado)
+    const gridSize = parseInt(getComputedStyle(tableroElement).getPropertyValue("--grid-tamaño")) || 10;
+    const tamañoTablero = tableroElement.offsetWidth;
+    const nuevoTamañoCasilla = Math.floor(tamañoTablero / gridSize);
+  
+    // Si la instancia de BarcoManager existe, actualiza los barcos
+    if (window.barcoManager && typeof window.barcoManager.actualizarTamañoBarcos === "function") {
+      window.barcoManager.actualizarTamañoBarcos(nuevoTamañoCasilla);
+    }
+});
+  
 
 //limpiamos el tablero y agregamos las casillas de acuerdo al tamaño escogido
 /*function hacerTablero(tamaño) {

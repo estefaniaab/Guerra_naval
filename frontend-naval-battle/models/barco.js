@@ -60,6 +60,7 @@ class Barco {
     
         const img = this.elemento.querySelector(".barco-imagen");
         img.style.transform = esHorizontal ? "rotate(0deg)" : "rotate(90deg)";
+        
         img.style.width = esHorizontal ? "100%" : `${alto}px`;
         img.style.height = esHorizontal ? "100%" : `${ancho}px`;
         img.style.left = esHorizontal ? "0" : `-${(this.longitud - 1) * this.tamañoCasilla / 2}px`;
