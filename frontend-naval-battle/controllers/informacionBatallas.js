@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const battleFieldId = battleFields.value 
         console.log(battleFieldId)
 
-        if (!battleFieldId || battleFieldId === "battlefield") {
+        if (!battleFieldId || battleFieldId === "placeholder") {
             console.error("No se selecciono el campo de batalla")
             alert("No se selecciono la zona de guerra")
             return false

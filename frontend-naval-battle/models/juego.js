@@ -275,6 +275,7 @@ class Juego {
         alert("Problemas en el paraiso")
       } else {
         console.log("Todo nice");
+        window.location.href = "ranking.html"
       }
     } else if (this.tableroUsuario.barcosHundidosUsuario === 6) {
       alert("La máquina ha ganado, ¡intenta de nuevo!");
