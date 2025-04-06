@@ -6,10 +6,14 @@
       grid-template-columns: repeat(var(--grid-tamaño), 1fr);
       grid-template-rows: repeat(var(--grid-tamaño), 1fr);
       gap: 2px;
-      width: 500px;
-      height: 500px;
+      width: 100%;
+      min-width: 200px; /* Ajusta el ancho mínimo según sea necesario */
+      max-width: 600px; /* Ajusta el ancho máximo según sea necesario */
+      height: auto;
+      aspect-ratio: 1 / 1;
       border: 2px solid black;
       position: relative;
+      margin: 0 auto;
 }
 
 .celda {
@@ -34,7 +38,7 @@
     border: 1px solid rgba(255, 255, 255, 0.6);
 }
  /* Clases adicionales para estados específicos */
- .celda.barco {
+.celda.barco {
     background-color: rgba(106, 123, 147, 0.7);
 }
 .celda.impacto {
@@ -48,8 +52,8 @@
     flex-wrap: wrap; /* Permite que los barcos pasen a la siguiente línea */
     gap: 10px; /* Espacio entre barcos */
     padding: 10px;
-    margin-bottom: 20px;
     max-width: 100%; /* Se ajusta al ancho disponible */
+    justify-content: center;
 }
 
 
@@ -61,6 +65,7 @@
     box-sizing: border-box;
     transition: width 0.3s ease, height 0.3s ease;
     z-index: 10;
+    display: inline-block;
 }
 
 .barco-imagen-wrapper {
@@ -74,6 +79,8 @@
     position: relative;
     transition: transform 0.3s ease;
     object-fit: cover;
+    width: 100%;
+    height: 100%;
     transform-origin: center;
 }
 .bandera-usuario {
