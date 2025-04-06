@@ -41,13 +41,6 @@ class BarcoManager {
       //const columna = event.target.dataset.columna;
       if (isNaN(fila) || isNaN(columna)) { //Se realizo con NAN ya que si se deja como entero al colocar un 0 lo toma como true
           alertaError("No se pudo determinar la celda de destino.");
-          //console.error(" No se pudo determinar la celda de destino.");
-          barco.colocado=false;
-          const barcoElemento = document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`);
-          if (barcoElemento) {
-            barcoElemento.style.display = 'none';
-          }
-
           return;
       }
 
@@ -99,23 +92,24 @@ class BarcoManager {
         barco.posicionActual = { fila, columna };
         console.log(`Barco ${barco.id} colocado y matriz actualizada.`);
         console.log("Matriz después de colocar:", tablero.matriz);
-        const barcoElemento = document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`);
-        if (barcoElemento) {
-          barcoElemento.style.display = 'none';
-        }
+
 
       } else {
           alertaError("No se puede colocar el barco aquí. Espacio ocupado o fuera de límites.")
           barco.colocado=false;
-          const barcoElemento = document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`);
-          if (barcoElemento) {
-            barcoElemento.style.display = 'block';
-          }
-          //this.zonaBarcos.appendChild(barco.elemento);
-          //remover el barco del tablero
+
+          // Mover el barco de vuelta a la "Zona Barcos"
           if (tablero.tablero.contains(barco.elemento)) {
             tablero.tablero.removeChild(barco.elemento);
           }
+          this.zonaBarcos.appendChild(barco.elemento);
+
+          // Eliminar estilos de posicionamiento absoluto
+          barco.elemento.style.position = ''; // Elimina position: absolute
+          barco.elemento.style.left = '';     // Elimina left
+          barco.elemento.style.top = '';
+          // Ajustar el tamaño del barco para que se vea correctamente en la "Zona Barcos"
+          barco.ajustarTamaño(false);
           
       }
   }
