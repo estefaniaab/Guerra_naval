@@ -79,7 +79,7 @@ export function obtenerTipoClimaEfecto(description) {
     return "snow"; // Nieve
   } else if (description.includes("thunder")|| description.includes("storm")) {
     return "rain"; // Tormenta
-  } else if (description.includes("fog") || description.includes("mist") || description.includes("haze")) {
+  } else if (description.includes("fog") || description.includes("mist") || description.includes("haze") ||description.includes("cloud")) {
     return "cloud"; // Niebla
   } else {
     return "sun"; // Clima claro, no mostrar efecto
