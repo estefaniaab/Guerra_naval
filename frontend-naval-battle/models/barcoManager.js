@@ -6,7 +6,7 @@ class BarcoManager {
     this.zonaBarcos = document.getElementById(zonaBarcosId);
     this.tamañoCasilla = tamañoCasilla;
     this.barcos = [];
-    this.crearBarcos();
+    
   }
 
   crearBarcos() {
@@ -33,8 +33,7 @@ class BarcoManager {
 
 
   colocarBarco(event, tablero) {
-      event.preventDefault();    
-
+      event.preventDefault(); 
 
       // Obtener la celda destino
       const fila = parseInt( event.target.dataset.fila);
@@ -44,7 +43,11 @@ class BarcoManager {
           alertaError("No se pudo determinar la celda de destino.");
           //console.error(" No se pudo determinar la celda de destino.");
           barco.colocado=false;
-          document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'block';
+          const barcoElemento = document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`);
+          if (barcoElemento) {
+            barcoElemento.style.display = 'none';
+          }
+
           return;
       }
 
@@ -96,11 +99,18 @@ class BarcoManager {
         barco.posicionActual = { fila, columna };
         console.log(`Barco ${barco.id} colocado y matriz actualizada.`);
         console.log("Matriz después de colocar:", tablero.matriz);
-        document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'none';
+        const barcoElemento = document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`);
+        if (barcoElemento) {
+          barcoElemento.style.display = 'none';
+        }
+
       } else {
           alertaError("No se puede colocar el barco aquí. Espacio ocupado o fuera de límites.")
           barco.colocado=false;
-          document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`).style.display = 'block';
+          const barcoElemento = document.querySelector(`#zonaBarcos .barco[data-id="${barco.id}"]`);
+          if (barcoElemento) {
+            barcoElemento.style.display = 'block';
+          }
           //this.zonaBarcos.appendChild(barco.elemento);
           //remover el barco del tablero
           if (tablero.tablero.contains(barco.elemento)) {
@@ -121,6 +131,25 @@ class BarcoManager {
       }
       return true;
   }
+  actualizarTamañoBarcos(nuevoTamañoCasilla) {
+    this.tamañoCasilla = nuevoTamañoCasilla;
+    this.barcos.forEach(barco => {
+      barco.tamañoCasilla = nuevoTamañoCasilla;
+  
+      if (barco.colocado && barco.posicionActual) {
+        // Reposicionar en la misma celda donde estaba
+        barco.posicionarEnTablero(
+          barco.posicionActual.fila,
+          barco.posicionActual.columna,
+          nuevoTamañoCasilla
+        );
+      } else {
+        // Si el barco no está colocado, solo ajustar tamaño en la zona de barcos
+        barco.ajustarTamaño();
+      }
+    });
+  }
+  
 }
 
 export default BarcoManager;
