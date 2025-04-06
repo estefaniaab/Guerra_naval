@@ -268,6 +268,7 @@ class Juego {
       }
     } else if (this.tableroUsuario.barcosHundidosUsuario === 6) {
       alert("La máquina ha ganado, ¡intenta de nuevo!");
+      window.location.href = "login.html"
     }
   }
 
