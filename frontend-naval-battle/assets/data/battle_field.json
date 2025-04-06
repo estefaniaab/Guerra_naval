@@ -1,184 +1,124 @@
 {
-    "campos_batalla_navales": [
+  "campos_batalla_navales": [
       {
-        "id": 1,
-        "nombre": "Desierto de Sal - Mar Rojo",
-        "latitud": 20.0000,
-        "longitud": 38.0000
+          "id": 1,
+          "nombre": "Desierto de Sal - Mar Rojo",
+          "latitud": 20.0,
+          "longitud": 38.0
       },
       {
-        "id": 2,
-        "nombre": "Fiordos Helados - Noruega",
-        "latitud": 60.8000,
-        "longitud": 6.5000
+          "id": 2,
+          "nombre": "Fiordos Helados - Noruega",
+          "latitud": 60.472,
+          "longitud": 8.4689
       },
       {
-        "id": 3,
-        "nombre": "Paraíso Tropical - Bahamas",
-        "latitud": 24.2500,
-        "longitud": -76.0000
+          "id": 3,
+          "nombre": "Paraíso Tropical - Bahamas",
+          "latitud": 25.0343,
+          "longitud": -77.3963
       },
       {
-        "id": 4,
-        "nombre": "Estrecho de los Hielos - Alaska",
-        "latitud": 58.0000,
-        "longitud": -146.0000
+          "id": 4,
+          "nombre": "Tormentas del Caribe - Honduras",
+          "latitud": 15.2,
+          "longitud": -86.2419
       },
       {
-        "id": 5,
-        "nombre": "Tormentas del Caribe - Honduras",
-        "latitud": 16.5000,
-        "longitud": -86.5000
+          "id": 5,
+          "nombre": "Bahía de los Vientos - Patagonia",
+          "latitud": -51.7963,
+          "longitud": -72.9967
       },
       {
-        "id": 6,
-        "nombre": "Bahía de los Vientos - Patagonia",
-        "latitud": -52.5000,
-        "longitud": -68.5000
+          "id": 6,
+          "nombre": "Mar Muerto - Jordania",
+          "latitud": 31.559,
+          "longitud": 35.4732
       },
       {
-        "id": 7,
-        "nombre": "Mar Muerto - Jordania",
-        "latitud": 31.5000,
-        "longitud": 35.5000
+          "id": 7,
+          "nombre": "Islas de la Niebla - Islandia",
+          "latitud": 64.9631,
+          "longitud": -19.0208
       },
       {
-        "id": 8,
-        "nombre": "Islas de la Niebla - Islandia",
-        "latitud": 64.0000,
-        "longitud": -22.0000
+          "id": 8,
+          "nombre": "Costa de los Piratas - Somalia",
+          "latitud": 5.1521,
+          "longitud": 46.1996
       },
       {
-        "id": 9,
-        "nombre": "Ciclón del Índico - Bangladesh",
-        "latitud": 21.0000,
-        "longitud": 91.5000
+          "id": 9,
+          "nombre": "Costa del Oro - Ghana",
+          "latitud": 5.6037,
+          "longitud": -0.187
       },
       {
-        "id": 10,
-        "nombre": "Archipiélago Congelado - Canadá",
-        "latitud": 74.0000,
-        "longitud": -95.0000
+          "id": 10,
+          "nombre": "Mar de los Sargazos - Atlántico",
+          "latitud": 31.0,
+          "longitud": -60.0
       },
       {
-        "id": 11,
-        "nombre": "Costa de los Piratas - Somalia",
-        "latitud": 12.0000,
-        "longitud": 51.5000
+          "id": 11,
+          "nombre": "Islas del Fin del Mundo - Tierra del Fuego",
+          "latitud": -54.8,
+          "longitud": -68.3
       },
       {
-        "id": 12,
-        "nombre": "Mar de Coral - Australia",
-        "latitud": -18.0000,
-        "longitud": 147.0000
+          "id": 12,
+          "nombre": "Bahía de los Huracanes - Florida",
+          "latitud": 25.7617,
+          "longitud": -80.1918
       },
       {
-        "id": 13,
-        "nombre": "Golfo de las Tormentas - Vietnam",
-        "latitud": 12.5000,
-        "longitud": 109.5000
+          "id": 13,
+          "nombre": "Costa de los Espejismos - Namibia",
+          "latitud": -22.9576,
+          "longitud": 14.5053
       },
       {
-        "id": 14,
-        "nombre": "Estrecho de la Muerte - Filipinas",
-        "latitud": 10.5000,
-        "longitud": 126.0000
+          "id": 14,
+          "nombre": "Mar de los Monzones - India",
+          "latitud": 20.5937,
+          "longitud": 78.9629
       },
       {
-        "id": 15,
-        "nombre": "Costa del Oro - Ghana",
-        "latitud": 5.0000,
-        "longitud": -1.5000
+          "id": 15,
+          "nombre": "Estrecho del Diablo - Malvinas",
+          "latitud": -51.7963,
+          "longitud": -59.5236
       },
       {
-        "id": 16,
-        "nombre": "Mar de los Sargazos - Atlántico",
-        "latitud": 28.0000,
-        "longitud": -66.0000
+          "id": 16,
+          "nombre": "Bahía de la Eternidad - Antártida",
+          "latitud": -65.0000,
+          "longitud": -65.0000
       },
       {
-        "id": 17,
-        "nombre": "Islas del Fin del Mundo - Tierra del Fuego",
-        "latitud": -54.5000,
-        "longitud": -68.0000
+          "id": 17,
+          "nombre": "Golfo de los Relámpagos - Venezuela",
+          "latitud": 10.4806,
+          "longitud": -66.9036
       },
       {
-        "id": 18,
-        "nombre": "Bahía de los Huracanes - Florida",
-        "latitud": 25.5000,
-        "longitud": -80.5000
+          "id": 18,
+          "nombre": "Estrecho de las Sombras - Chile",
+          "latitud": -55.05,
+          "longitud": -72.0
       },
       {
-        "id": 19,
-        "nombre": "Costa de los Espejismos - Namibia",
-        "latitud": -23.5000,
-        "longitud": 14.5000
+          "id": 19,
+          "nombre": "Mar de los Vientos - Cabo de Hornos",
+          "latitud": -55.9833,
+          "longitud": -67.2667
       },
       {
         "id": 20,
-        "nombre": "Mar de los Monzones - India",
-        "latitud": 18.0000,
-        "longitud": 72.5000
-      },
-      {
-        "id": 21,
-        "nombre": "Estrecho del Diablo - Malvinas",
-        "latitud": -51.5000,
-        "longitud": -59.0000
-      },
-      {
-        "id": 22,
-        "nombre": "Canal de los Tifones - Taiwán",
-        "latitud": 23.5000,
-        "longitud": 120.0000
-      },
-      {
-        "id": 23,
-        "nombre": "Bahía de la Eternidad - Antártida",
-        "latitud": -65.0000,
-        "longitud": -65.0000
-      },
-      {
-        "id": 24,
-        "nombre": "Mar de las Calmas - Ecuador",
-        "latitud": -0.5000,
-        "longitud": -91.0000
-      },
-      {
-        "id": 25,
-        "nombre": "Golfo de los Relámpagos - Venezuela",
-        "latitud": 10.5000,
-        "longitud": -64.5000
-      },
-      {
-        "id": 26,
-        "nombre": "Costa de los Volcanes - Indonesia",
-        "latitud": -7.5000,
-        "longitud": 110.5000
-      },
-      {
-        "id": 27,
-        "nombre": "Estrecho de las Sombras - Chile",
-        "latitud": -55.0000,
-        "longitud": -70.0000
-      },
-      {
-        "id": 28,
-        "nombre": "Mar de los Vientos - Cabo de Hornos",
-        "latitud": -56.0000,
-        "longitud": -67.0000
-      },
-      {
-        "id": 29,
-        "nombre": "Bahía de los Mares Perdidos - Kiribati",
-        "latitud": 1.5000,
-        "longitud": -157.5000
-      },
-      {
-        "id": 30,
-        "nombre": "Canal de la Niebla - San Francisco",
-        "latitud": 37.5000,
-        "longitud": -122.5000
+        "nombre": "Estrecho de Gibraltar - Confluencia de Mares",
+        "latitud": 35.9784,
+        "longitud": -5.6078
       }
     ]
   }
