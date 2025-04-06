@@ -4,7 +4,7 @@ class TableroMaquina{
         this.tamaño=tamaño;
         this.tablero=document.getElementById(id);
         this.matriz=this.crearMatriz();
-        this.barcosHundidos=0;
+        this.barcosHundidosMaquina=0;
         
         this.direcciones = [
             { df: 0, dc: 1 },  // Derecha
@@ -155,8 +155,8 @@ class TableroMaquina{
             }
             // revisa si todas las celdas del barco han sido impactadas
             if (celdas.length > 1 && celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p2-h")) {
-                this.barcosHundidos += 1;
-                console.log("¡Barco de la máquina hundido! Total:", this.barcosHundidos);
+                this.barcosHundidosMaquina += 1;
+                console.log("¡Barco de la máquina hundido! Total:", this.barcosHundidosMaquina);
                 return true;
             }
         }

@@ -7,6 +7,7 @@ class TableroUsuario {
         this.tablero = document.getElementById(id);
         this.matriz = this.crearMatriz();
         this.barcoManager=barcoManager
+        this.barcosHundidosUsuario=0;
         this.generarTablero();
         this.inicializarEventosDragAndDrop()
     }
@@ -83,7 +84,8 @@ class TableroUsuario {
     
             // verifica si todas las celdas del barco están heridas
             if (celdas.length > 1 && celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p1-h")) {
-                console.log("¡Barco del usuario hundido!");
+                this.barcosHundidosUsuario += 1;
+                console.log("¡Barco del usuario hundido!", this.barcosHundidosUsuario);
                 return true;
             }
         }
