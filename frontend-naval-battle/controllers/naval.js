@@ -4,63 +4,55 @@ import { alertaError, getWeather, htmlClima, obtenerTipoClimaEfecto } from "../u
 //se obtienen los diferentes elementos
 import TableroUsuario from "../models/tablero_usuario.js";
 import BarcoManager from "../models/barcoManager.js";
-import TableroMaquina from "../models/tablero_maquina.js";
+import { User } from "../models/user.js";
 import Juego from "../models/juego.js";
+
 document.addEventListener("DOMContentLoaded", async function () {
-    
-    const usuario = document.getElementById("nombre-usuario")
-    const bandera = document.getElementById("bandera-usuario") 
-    const inicar_juego=document.getElementById("iniciar_juego")
-    const button = document.getElementById("generarBoton");
-    const exportar = document.getElementById("botonExportar");
-    const tamañoCasillas = document.getElementById("tamañoCasillas");
-    const tableroElement = document.getElementById("tableroUsuario"); // O el ID correcto del tablero
-    //const tablero = document.getElementById("tablero")
-    //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
-    window.barcoManager = null;
-    let juego = null;
-    button.addEventListener("click", () => {
-        const tamaño = parseInt(tamañoCasillas.value);
-        if (tamaño < 10 || tamaño > 20) {
-            alertaError("El tamaño debe estar entre 10 y 20.")
-            return
-        }
-        document.getElementById("zonaBarcos").innerHTML = "";
-        const tamañoTablero = tableroElement.offsetWidth
-        // Calcula el tamaño de cada casilla según el tamaño del tablero, el tabalero es 500 px
-        const tamañoCasilla = Math.floor(tamañoTablero / tamaño);
-        window.barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
-        const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",window.barcoManager)
-        window.barcoManager.crearBarcos();
-        juego= new Juego(tablero_usuario,tamaño)
-        // Instanciar el tablero de la máquina
-        
-        
-
-        inicar_juego.addEventListener("click", function () {
-        juego.iniciarJuego(); // Inicia el juego al hacer clic en el botón
-      });
-
-      exportar.addEventListener("click", () => {
-        juego.devolverExportacionMapa()
-        console.log("Funcione jejeje");
-        
-      })
-
-      //let miArray = crearArray(tamaño);
-      //console.log(miArray);
-      //hacerTablero(tamaño);
-    } );
-
+  // Creación variables y constantes
+  const usuario = document.getElementById("nombre-usuario");
+  const bandera = document.getElementById("bandera-usuario");
+  const inicar_juego = document.getElementById("iniciar_juego");
+  const exportar = document.getElementById("botonExportar");
+  const button = document.getElementById("generarBoton");
+  const tamañoCasillas = document.getElementById("tamañoCasillas");
+  const tableroElement = document.getElementById("tableroUsuario"); // O el ID correcto del tablero
   // Nombre usuario
   const nickname = localStorage.getItem("currentUser"); // Sacamos la información del storage
-
   // Bandera usuario
   const flag = localStorage.getItem("flagUser").toUpperCase();
 
-  console.log(nickname);
-  console.log(flag);
+  window.barcoManager = null;
+  let juego = null;
+  //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
+  button.addEventListener("click", () => {
+    const tamaño = parseInt(tamañoCasillas.value);
+    if (tamaño < 10 || tamaño > 20) {
+        alertaError("El tamaño debe estar entre 10 y 20.")
+        return
+    }
 
+    document.getElementById("zonaBarcos").innerHTML = "";
+    const tamañoTablero = tableroElement.offsetWidth
+    // Calcula el tamaño de cada casilla según el tamaño del tablero, el tabalero es 500 px
+    const tamañoCasilla = Math.floor(tamañoTablero / tamaño);
+    window.barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
+    const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",window.barcoManager)
+    window.barcoManager.crearBarcos();
+
+    let jugador = new User(nickname, 0, flag)
+
+    juego = new Juego(tablero_usuario,tamaño, jugador)
+
+    inicar_juego.addEventListener("click", function () {
+    juego.iniciarJuego(); // Inicia el juego al hacer clic en el botón
+    });
+
+    exportar.addEventListener("click", () => {
+      juego.devolverExportacionMapa()      
+    })
+
+  });
+  
   // Inserciones en el HTML
   usuario.innerHTML = "";
   usuario.innerHTML = `<p>${nickname}</p>`;
@@ -73,6 +65,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                          width="64" height="64">
                          `;
 
+  
   // Intentamos cargar la información del clima
   try {
     // Sacamos del localStorage el JSON
