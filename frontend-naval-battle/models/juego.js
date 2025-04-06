@@ -41,40 +41,47 @@ class Juego {
         }
     });
   }
-    registrarDisparo(fila, columna,celda) {
-      
-        if (this.tableroMaquina.matriz[fila][columna] == "p2") {
-            console.log("Disparo Exitoso.");
-            this.tableroMaquina.matriz[fila][columna] = "p2-h"; // Marca como acertado
-            celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
-            this.tableroMaquina.verificarBarcoHundido(fila,columna);
-            this.usuario.addScore(10)
-            this.verificarFinDelJuego();
-            this.registrarDisparo();
-            alertaTurno("Usuario");
-        } else {
-          // Disparo fallido
-          this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
-          celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`; // Agrega imagen de acierto
-          alertaTurno("Maquina");
-          // Verificar cuantos puntos pierde por adhacencia 
-          const barcosCerca = this.hayBarcoAdyacente(fila, columna, this.tableroMaquina.matriz, this.tamaño)
-
-          if (barcosCerca) {  // Se restan 3 si esta cerca, se resta 1 si no
-            console.log("Disparo fallido, pierde 3 puntos")
-            this.usuario.addScore(-3)
-          } else {
-            console.log("Disparo fallido, pierde 1 punto")
-            this.usuario.addScore(-1)
-          }
-
-        }
-        this.turnoUsuario = false;
-        console.log(this.usuario.score);
-        
-         this.disparoMaquinaInteligente();
-        
+  registrarDisparo(fila, columna, celda) {
+    // Evita disparar en la misma celda dos veces
+    const valorActual = this.tableroMaquina.matriz[fila][columna];
+    if (valorActual === "p2-h" || valorActual === "b") return;
+  
+    if (valorActual === "p2") {
+      console.log("Disparo Exitoso.");
+      this.tableroMaquina.matriz[fila][columna] = "p2-h"; // Marca como acertado
+      celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Imagen de acierto
+      this.tableroMaquina.verificarBarcoHundido(fila, columna);
+      this.usuario.addScore(10);
+      this.verificarFinDelJuego();
+  
+    } else {
+      // Disparo fallido
+      this.tableroMaquina.matriz[fila][columna] = "b"; // Marca como fallido
+      celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`; // Imagen de fallo
+  
+      // Verificar penalización por proximidad
+      const barcosCerca = this.hayBarcoAdyacente(fila, columna, this.tableroMaquina.matriz, this.tamaño);
+      if (barcosCerca) {
+        console.log("Disparo fallido, pierde 3 puntos");
+        this.usuario.addScore(-3);
+      } else {
+        console.log("Disparo fallido, pierde 1 punto");
+        this.usuario.addScore(-1);
+      }
+  
+      console.log(this.usuario.score);
+  
+      // Fin del turno del usuario
+      this.turnoUsuario = false;
+  
+      // Turno de la máquina con retraso visual
+      setTimeout(() => {
+        alertaTurno("Máquina");
+        this.disparoMaquinaInteligente();
+      }, 1000);
     }
+  }
+  
   hayBarcoAdyacente(fila, columna, tablero, tamaño) {
     const adyacentes = [
       [fila-1, columna], [fila+1, columna],  // Arriba, abajo
@@ -225,6 +232,8 @@ class Juego {
       this.resetDireccion();
       alertaTurno("Usuario");
       this.turnoUsuario = true;
+    } else if (val === "p1-h") {
+      this.disparoRandom();
     } else {
       this.resetDireccion();
     }
