@@ -1,5 +1,5 @@
 // Importaciones
-import { alertaError, getWeather, htmlClima } from "../utils/helpers.js"; // Importamos la función de sacar el clima de helpers
+import { alertaError, getWeather, htmlClima, obtenerTipoClimaEfecto } from "../utils/helpers.js"; // Importamos la función de sacar el clima de helpers
 
 //se obtienen los diferentes elementos
 import TableroUsuario from "../models/tablero_usuario.js";
@@ -7,17 +7,17 @@ import BarcoManager from "../models/barcoManager.js";
 import TableroMaquina from "../models/tablero_maquina.js";
 import Juego from "../models/juego.js";
 document.addEventListener("DOMContentLoaded", async function () {
-    const contenedorClima = document.getElementById('contenedorClima');
+    /*const contenedorClima = document.getElementById('contenedorClima');
 
     if (contenedorClima && window.Weather) {
         const clima = new window.Weather({
-        type: 'rain',
+        type: 'cloud',
         container: contenedorClima,
         });
         clima.start();
     } else {
         console.error('No se encontró el contenedor o Weather no está definido.');
-    }
+    }*/
     
     const usuario = document.getElementById("nombre-usuario")
     const bandera = document.getElementById("bandera-usuario") 
@@ -101,6 +101,20 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Hacemos los cambios
     htmlClima(climaElement, data);
+    const contenedorClima = document.getElementById('contenedorClima')
+    const tipoClima = obtenerTipoClimaEfecto(data.climaDesc); // usamos la descripción de la API
+    console.log (tipoClima)
+    
+    if (tipoClima && window.Weather) {
+        const climaVisual = new Weather({
+        type: tipoClima,
+        container: contenedorClima,
+        });
+        climaVisual.start();
+    } else {
+        console.log("No hay efecto de clima para:", data.climaDesc);
+    }
+
   } catch (error) {
     console.error("Error al obtener el clima: ", error);
   }
@@ -121,18 +135,3 @@ window.addEventListener("resize", () => {
 });
   
 
-//limpiamos el tablero y agregamos las casillas de acuerdo al tamaño escogido
-/*function hacerTablero(tamaño) {
-    const tablero = document.getElementById("tablero");
-    tablero.innerHTML="";
-
-    tablero.style.setProperty("--grid-tamaño", tamaño);
-
-    for (let i = 0; i < tamaño; i++) { 
-        for (let j = 0; j < tamaño; j++) { 
-            const casilla = document.createElement("div");
-            casilla.classList.add("casilla");
-            tablero.appendChild(casilla);
-        }
-    }
-}*/

@@ -69,6 +69,23 @@ export function htmlClima(climaElement, data) {
     titulo.style.width = `${climaAncho}px`
   }, 10)
 }
+// Traduce el clima que da OpenWeather a un tipo válido para weather-effects
+export function obtenerTipoClimaEfecto(description) {
+  description = description.toLowerCase(); // Para evitar errores por mayúsculas
+
+  if (description.includes("rain") || description.includes("shower")) {
+    return "rain"; // Lluvia
+  } else if (description.includes("snow")) {
+    return "snow"; // Nieve
+  } else if (description.includes("thunder")|| description.includes("storm")) {
+    return "rain"; // Tormenta
+  } else if (description.includes("fog") || description.includes("mist") || description.includes("haze")) {
+    return "cloud"; // Niebla
+  } else {
+    return "sun"; // Clima claro, no mostrar efecto
+  }
+}
+
 /** Funcion para crear los tableros
  * 
  * @param {*}  contendeor
@@ -96,3 +113,4 @@ export function alertaError(mensaje){
     showConfirmButton: false
 });
 }
+
