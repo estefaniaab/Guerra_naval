@@ -33,7 +33,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   let jugador = new User(nickname, 0, flag)
   juego = new Juego(tablero_usuario,tamaño, jugador)
   inicar_juego.addEventListener("click", function () {
-  juego.iniciarJuego(); // Inicia el juego al hacer clic en el botón
+    if (window.barcoManager.todosBarcosColocados()) { // Verificamos si todos los barcos están colocados) {
+        juego.iniciarJuego(); // Inicia el juego al hacer clic en el botón
+    } else{
+        alertaError("No has colocado todos los barcos!")
+    }
+  
   });
   exportar.addEventListener("click", () => {
     juego.devolverExportacionMapa()      

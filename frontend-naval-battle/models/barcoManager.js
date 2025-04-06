@@ -30,7 +30,10 @@ class BarcoManager {
       
     });
   }
-
+   // Método para verificar si todos los barcos están colocados
+  todosBarcosColocados() {
+    return this.barcos.every(barco => barco.colocado === true);
+  }
 
   colocarBarco(event, tablero) {
       event.preventDefault(); 
@@ -143,6 +146,7 @@ class BarcoManager {
       }
     });
   }
+ 
   
 }
 
