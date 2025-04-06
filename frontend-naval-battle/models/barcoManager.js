@@ -33,8 +33,7 @@ class BarcoManager {
 
 
   colocarBarco(event, tablero) {
-      event.preventDefault();    
-
+      event.preventDefault(); 
 
       // Obtener la celda destino
       const fila = parseInt( event.target.dataset.fila);

@@ -12,14 +12,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     const inicar_juego=document.getElementById("iniciar_juego")
     const button = document.getElementById("generarBoton");
     const tamañoCasillas = document.getElementById("tamañoCasillas");
+    const tableroElement = document.getElementById("tableroUsuario"); // O el ID correcto del tablero
     //const tablero = document.getElementById("tablero")
     //hacemos que el boton tenga una funcion para agregar el tamaño deseado y traerlo como numero
     button.addEventListener("click", () => {
         const tamaño = parseInt(tamañoCasillas.value);
         if (tamaño >= 10 && tamaño <= 20) {
-            
+            const tamañoTablero = tableroElement.offsetWidth
             // Calcula el tamaño de cada casilla según el tamaño del tablero, el tabalero es 500 px
-            const tamañoCasilla = Math.floor(500 / tamaño);
+            const tamañoCasilla = Math.floor(tamañoTablero / tamaño);
             const barcoManager = new BarcoManager("zonaBarcos", tamañoCasilla);
             const tablero_usuario = new TableroUsuario (tamaño,"tableroUsuario",barcoManager)
             const juego= new Juego(tablero_usuario.tablero,tamaño)

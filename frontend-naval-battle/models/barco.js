@@ -20,7 +20,6 @@ class Barco {
 
         // Imagen del barco
         const imgElement = document.createElement("img");
-        console.log(`Asignando imagen: ${this.tipoImagen} al barco ${this.id}`);
         imgElement.src = this.tipoImagen;
         imgElement.classList.add("barco-imagen");
         imgElement.draggable = true;
