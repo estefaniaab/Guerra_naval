@@ -1,0 +1,13 @@
+.boton-volver-contenedor {
+    display: flex;
+    justify-content: center;
+    padding: 1rem; 
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .boton-volver {
+    width: 100%;
+    max-width: 400px;
+  }
+  

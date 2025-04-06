@@ -39,6 +39,7 @@ def score_recorder():
 
     if nick in scores:
         scores[nick]["score"] += data["score"]
+        scores[nick]["country_code"] = data["country_code"] # Cambio realizado para que cada vez se actualice la bandera
     else:
         scores[nick] = {"score": data["score"], "country_code": data["country_code"]}
 

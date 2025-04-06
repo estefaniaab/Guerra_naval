@@ -4,9 +4,8 @@ body {
     background-image: url('/frontend-naval-battle/assets/image_login.jpeg'); /* Reemplaza con la imagen que elijas */
     background-size:cover;
     background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100vh;
     margin: 0;
 }
