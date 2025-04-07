@@ -35,6 +35,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   juego = new Juego(tablero_usuario,tamaño, jugador)
   inicar_juego.addEventListener("click", function () {
     if (window.barcoManager.todosBarcosColocados()) { // Verificamos si todos los barcos están colocados) {
+        window.barcoManager.barcos.forEach(barco => barco.deshabilitarArrastre());
+        tablero_usuario.iniciarJuego();
+        console.log(" No se pueden mover los barcos")
         juego.iniciarJuego(); // Inicia el juego al hacer clic en el botón
     } else{
         alertaError("No has colocado todos los barcos!")
@@ -111,4 +114,3 @@ window.addEventListener("resize", () => {
       window.barcoManager.actualizarTamañoBarcos(nuevoTamañoCasilla);
     }
 });
-

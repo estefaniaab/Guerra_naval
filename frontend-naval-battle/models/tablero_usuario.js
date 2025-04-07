@@ -10,6 +10,7 @@ class TableroUsuario {
         this.matriz = this.crearMatriz();
         this.barcoManager=barcoManager
         this.barcosHundidosUsuario=0;
+        this.juegoIniciado = false; // Variable para controlar el estado del juego
         this.generarTablero();
         this.inicializarEventosDragAndDrop()
     }
@@ -24,17 +25,21 @@ class TableroUsuario {
         // Agregar eventos delegados al tablero
     inicializarEventosDragAndDrop(){
         this.tablero.addEventListener("dragover", (e) => {
-            if (e.target.classList.contains("celda")) {
+            if (e.target.classList.contains("celda")&& !this.juegoIniciado) {
                 e.preventDefault(); // Necesario para permitir el drop
             }
         });
 
         this.tablero.addEventListener("drop", (e) => {
-            if (e.target.classList.contains("celda")) {
+            if (e.target.classList.contains("celda")&& !this.juegoIniciado) {
                 this.barcoManager.colocarBarco(e, this);
             }
         });
     } 
+    iniciarJuego() {
+        this.juegoIniciado = true; // Cambia el estado del juego a iniciado
+        
+    }
     
 
     actualizarMatriz(fila, columna, longitud, orientacion, valor) {
@@ -51,8 +56,8 @@ class TableroUsuario {
             return false;
     
         const direcciones = [
-            { df: 0, dc: 1 },  // Derecha
-            { df: 1, dc: 0 }   // Abajo
+            { df: 0, dc: 1 },  // Horizontal
+            { df: 1, dc: 0 }   // Vertical
         ];
     
         for (let { df, dc } of direcciones) {
@@ -91,7 +96,7 @@ class TableroUsuario {
                 console.log("¡Barco del usuario hundido!", this.barcosHundidosUsuario);
                 return true;
             }
-            return false;
+            
         }
     
         return false;

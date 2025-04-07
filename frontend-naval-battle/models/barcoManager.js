@@ -34,7 +34,13 @@ class BarcoManager {
   todosBarcosColocados() {
     return this.barcos.every(barco => barco.colocado === true);
   }
-
+  deshabilitarArrastre() {
+    this.barcos.forEach(barco => {
+      if (barco.elemento) { // Verifica que el elemento exista
+        barco.elemento.setAttribute('draggable', 'false');
+      }
+    });
+  }
   colocarBarco(event, tablero) {
       event.preventDefault(); 
 
