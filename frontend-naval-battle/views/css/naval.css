@@ -83,22 +83,41 @@
     height: 100%;
     transform-origin: center;
 }
+#contenedor-bandera-nombre {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .bandera-usuario {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     border: 2px solid black;
-    border-radius: 50%;
-    margin: auto;
+    border-radius: 8px;
+    flex-shrink: 0;
 }
 
 .nombre-usuario {
-    border: 1px solid black;
-    padding: 10px;
+    font-weight: bold;
+    font-size: 1.25rem;
+    border: 2px solid #333;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.85);
+    text-align: left;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.barra-amarilla {
-    border: 2px solid yellow;
-    padding: 10px;
+.nota-motivacional {
+    font-size: 2.8rem;
+    font-style: italic;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-left: 5px solid #007bff;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
 .info, .empieza-juego {
@@ -155,7 +174,7 @@
     box-sizing: border-box;
 }
 .weather-info {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.4;
     text-align: left;
 }
@@ -173,6 +192,10 @@
 
 /*... Todo tu CSS anterior permanece igual... */
 @media (max-width: 768px) {
+    #contenedor-bandera-nombre {
+        flex-direction: column;
+        align-items: center;
+    }
     #contenedorClima {
         margin: auto;
         text-align: center;
@@ -191,11 +214,17 @@
         margin: 0 auto;
     }
 
+    .nota-motivacional {
+        text-align: center;
+        font-size: 1rem;
+    }
+
     .nombre-usuario {
+        text-align: center;
         font-size: 1.1rem;
-        padding: 8px;
-        margin: 0 auto;
-        width: fit-content;
+        padding: 10px;
+        width: 100%;
+        max-width: 90%;
     }
 
     .clima-contenedor {
