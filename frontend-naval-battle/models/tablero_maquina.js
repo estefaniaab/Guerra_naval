@@ -8,6 +8,7 @@ class TableroMaquina{
         this.tablero=document.getElementById(id);
         this.matriz=this.crearMatriz();
         this.barcosHundidosMaquina=0;
+        this.barcos = [];
         
         this.direcciones = [
             { df: 0, dc: 1 },  // Derecha
@@ -75,10 +76,12 @@ class TableroMaquina{
                     
                     //se agrga la posicion a la matriz
                     if (valido) {
-                        posiciones.forEach(({ fila, columna }) => this.matriz[fila][columna] = `p2`);
+                        posiciones.forEach(({ fila, columna }) => this.matriz[fila][columna] = "p2");
+                        this.barcos.push({ posiciones, tamaño: tam }); //  guardamos barco con sus posiciones
                         colocado = true;
                         break;
                     }
+                    
                 }
                 
                 intentos--;
@@ -119,53 +122,32 @@ class TableroMaquina{
         return array;
     }    
 
-    verificarBarcoHundido(fila,columna) {
-        // se valida solo cuando hay un p2-h ya que si no hay impactos nos hay barcos hundidos
-        if (this.matriz[fila][columna] !== "p2-h") 
-            return false;
-        // se recorre el array y se crea uno que comienza desde el impacto
-        for (let { df,dc } of this.direcciones) {
-            let celdas = [{ fila,columna }];
-            let i = 1;
-
-            //se revisa para la derecha y hacia abajo, se detiene si sale del limite o si es "a" o "b"
-            //y se guarda la posicion
-            while (true) {
-                let f = fila + df * i;
-                let c = columna + dc * i;
-                if (!this.esValida(f, c, this.tamaño)) break;
+    verificarBarcoHundido(fila, columna) {
+        // Solo si fue un impacto
+        if (this.matriz[fila][columna] !== "p2-h") return false;
     
-                let valor = this.matriz[f][c];
-                if (valor !== "p2" && valor !== "p2-h") break;
+        for (let barco of this.barcos) {
+            let coincide = barco.posiciones.some(pos => pos.fila === fila && pos.columna === columna);
+            if (coincide) {
+                // Verificamos si todas sus posiciones están impactadas
+                let hundido = barco.posiciones.every(pos => this.matriz[pos.fila][pos.columna] === "p2-h");
+                if (hundido) {
+                    // al hundirse muestra por consola que tamaño de barco se hundio
+                    let etiqueta = `p2-h-${barco.tamaño}`;
+                    barco.posiciones.forEach(pos => {
+                        this.matriz[pos.fila][pos.columna] = etiqueta;
+                    });
     
-                celdas.push({ fila: f, columna: c });
-                i++;
-            }
-
-            //se revisa para la izquierda y hacia arriba, se detiene si sale del limite o si es "a" o "b"
-            //y se guarda la posicion
-            i = 1;
-            while (true) {
-                let f = fila - df * i;
-                let c = columna - dc * i;
-                if (!this.esValida(f, c, this.tamaño)) break;
-    
-                let valor = this.matriz[f][c];
-                if (valor !== "p2" && valor !== "p2-h") break;
-    
-                celdas.push({ fila: f, columna: c });
-                i++;
-            }
-            // revisa si todas las celdas del barco han sido impactadas
-            if (celdas.length > 1 && celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p2-h")) {
-                this.barcosHundidosMaquina += 1;
-                alertaInfo("¡Hundiste un barco de la máquina!");
-                console.log("¡Barco de la máquina hundido! Total:", this.barcosHundidosMaquina);
-                return true;
+                    this.barcosHundidosMaquina += 1;
+                    alertaInfo("¡Hundiste un barco de la máquina!");
+                    console.log(`¡Barco de la máquina hundido (tamaño ${barco.tamaño})! Total:`, this.barcosHundidosMaquina);
+                    return true;
+                }
             }
         }
         return false;
     }
+    
 
 }   
 
