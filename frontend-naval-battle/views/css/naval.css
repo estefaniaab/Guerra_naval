@@ -240,3 +240,56 @@
         text-align: center;
     }
 }
+
+body {
+    background: linear-gradient(to bottom, #87ceeb 0%, #c2d6e6 50%, #f4e2c3 100%);
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+  }
+.ola-animada {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 300px; /* <-- AUMENTAMOS altura */
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  .ola {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 100%;
+    background: #87cefa;
+    opacity: 0.7;
+    clip-path: polygon(
+      0% 40%, 10% 55%, 20% 40%, 30% 55%, 40% 40%,
+      50% 55%, 60% 40%, 70% 55%, 80% 40%, 90% 55%, 100% 40%,
+      100% 100%, 0% 100%
+    ); /* <-- Más picos pronunciados */
+    animation: moverOlas 6s linear infinite;
+  }
+  
+  .ola1 {
+    background: #4682b4;
+    opacity: 0.5;
+    animation-duration: 10s;
+  }
+  
+  .ola2 {
+    animation-direction: reverse;
+    opacity: 0.4;
+  }
+  
+  @keyframes moverOlas {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  
