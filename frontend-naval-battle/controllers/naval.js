@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   const bandera = document.getElementById("bandera-usuario");
   const inicar_juego = document.getElementById("iniciar_juego");
   const exportar = document.getElementById("botonExportar");
+  const volver = document.getElementById("volver")
   const tableroElement = document.getElementById("tableroUsuario"); // O el ID correcto del tablero
   // Nombre usuario
   const nickname = localStorage.getItem("currentUser"); // Sacamos la información del storage
@@ -93,6 +94,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   } catch (error) {
     console.error("Error al obtener el clima: ", error);
   }
+
+  volver.addEventListener("click", () => {
+    window.location.href = "informacionBatallas.html"
+  })
 });
 
 window.addEventListener("resize", () => {

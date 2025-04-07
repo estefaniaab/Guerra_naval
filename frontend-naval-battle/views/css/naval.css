@@ -56,6 +56,13 @@
     justify-content: center;
 }
 
+#botonExportar, #volver {
+    margin: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 12px;
+}
+
 
 
 .barco {
@@ -83,22 +90,41 @@
     height: 100%;
     transform-origin: center;
 }
+#contenedor-bandera-nombre {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .bandera-usuario {
-    width: 60px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
     border: 2px solid black;
-    border-radius: 50%;
-    margin: auto;
+    border-radius: 8px;
+    flex-shrink: 0;
 }
 
 .nombre-usuario {
-    border: 1px solid black;
-    padding: 10px;
+    font-weight: bold;
+    font-size: 1.25rem;
+    border: 2px solid #333;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.85);
+    text-align: left;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.barra-amarilla {
-    border: 2px solid yellow;
-    padding: 10px;
+.nota-motivacional {
+    font-size: 2.8rem;
+    font-style: italic;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-left: 5px solid #007bff;
+    padding: 10px 15px;
+    margin-top: 10px;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
 .info, .empieza-juego {
@@ -129,9 +155,10 @@
 /* PARTES DEL CLIMA */
 .clima-contenedor {
     display: inline-block;
-    text-align: right;
-    max-width: 100%;
-    margin-left: auto;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 250px;
 }
 
 .clima-titulo {
@@ -154,7 +181,7 @@
     box-sizing: border-box;
 }
 .weather-info {
-    font-size: 0.95rem;
+    font-size: 1rem;
     line-height: 1.4;
     text-align: left;
 }
@@ -169,3 +196,107 @@
     margin: 5px auto 0;
     display: block;
 }
+
+/*... Todo tu CSS anterior permanece igual... */
+@media (max-width: 768px) {
+    #contenedor-bandera-nombre {
+        flex-direction: column;
+        align-items: center;
+    }
+    #contenedorClima {
+        margin: auto;
+        text-align: center;
+        display: inline-block;
+        float: none;
+    }
+
+    #contenedorClima .col-2,
+    #contenedorClima .col-6,
+    #contenedorClima .col-4 {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+
+    .bandera-usuario {
+        margin: 0 auto;
+    }
+
+    .nota-motivacional {
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .nombre-usuario {
+        text-align: center;
+        font-size: 1.1rem;
+        padding: 10px;
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .clima-contenedor {
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .clima-titulo h4 {
+        font-size: 1.2rem;
+    }
+
+    .weather-info {
+        text-align: center;
+    }
+}
+
+body {
+    background: linear-gradient(to bottom, #87ceeb 0%, #c2d6e6 50%, #f4e2c3 100%);
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+  }
+.ola-animada {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 300px; /* <-- AUMENTAMOS altura */
+    overflow: hidden;
+    z-index: -1;
+  }
+  
+  .ola {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 100%;
+    background: #87cefa;
+    opacity: 0.7;
+    clip-path: polygon(
+      0% 40%, 10% 55%, 20% 40%, 30% 55%, 40% 40%,
+      50% 55%, 60% 40%, 70% 55%, 80% 40%, 90% 55%, 100% 40%,
+      100% 100%, 0% 100%
+    ); /* <-- Más picos pronunciados */
+    animation: moverOlas 6s linear infinite;
+  }
+  
+  .ola1 {
+    background: #4682b4;
+    opacity: 0.5;
+    animation-duration: 10s;
+  }
+  
+  .ola2 {
+    animation-direction: reverse;
+    opacity: 0.4;
+  }
+  
+  @keyframes moverOlas {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  

@@ -1,5 +1,6 @@
 // Importaciones
 import { User } from "../models/user.js"
+import { puntajeUsuario } from "../utils/helpers.js";
 
 document.addEventListener("DOMContentLoaded", function() {
     let countries = document.getElementById("paises") // Accedemos a la componente del html
@@ -94,21 +95,16 @@ document.addEventListener("DOMContentLoaded", function() {
     async function createUser(nickname, score, pais) {
         // Se crea un nuevo objeto User
         const usuarioNuevo = new User(nickname, score, pais)
+        
+        const usuarioBackend = usuarioNuevo.toBackendFormat()
 
-        // Fetch para el backend
-        try {
-        const response = await fetch("http://127.0.0.1:5000/score-recorder", {
-            method: "POST", // El metodo que se pide desde el backend
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(usuarioNuevo.toBackendFormat()) // Se manda la información en string de la función toBackendFormat()
-        })
-
-            return response.ok
-
-        } catch (error) {
-            console.error("Error en createUser", error)
+       if (!puntajeUsuario(usuarioBackend)){
+            alert("Hubo un error")
             return false
-        }
+       } else {
+            console.log("Todo bien")
+            return true
+       }
     } 
 
     //Llamado a la función
