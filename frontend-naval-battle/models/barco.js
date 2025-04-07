@@ -8,6 +8,8 @@ class Barco {
         this.colocado=false;
         this.posicionActual=null;
         this.elemento = null; // Inicialmente null
+        // Guardamos el manejador de dragstart
+        this.dragStartHandler = this.onDragStart.bind(this);
         this.crearElemento()
     }
 
@@ -27,9 +29,15 @@ class Barco {
         this.elemento.appendChild(imgElement);
         this.setDimensiones(); // Ahora `this.elemento` ya está definido
         
-        this.elemento.setAttribute("draggable", true);
-        this.elemento.addEventListener("dragstart", this.onDragStart.bind(this));
+        
+        this.elemento.addEventListener("dragstart", this.dragStartHandler);
         this.elemento.addEventListener("click", this.rotar.bind(this));
+    }
+
+    deshabilitarArrastre() {
+        this.elemento.setAttribute('draggable', 'false');
+        // Removemos el evento dragstart para asegurar que no se pueda arrastrar
+        this.elemento.removeEventListener("dragstart", this.dragStartHandler);
     }
     
     setDimensiones() {
@@ -39,9 +47,7 @@ class Barco {
     onDragStart(event) {
         event.dataTransfer.setData("text/plain", JSON.stringify({ id: this.id, orientacion:this.orientacion}));
     }
-    deshabilitarArrastre() {
-        this.elemento.setAttribute('draggable', 'false');
-    }
+    
 
     rotar(event) {
         if (event) event.stopPropagation();

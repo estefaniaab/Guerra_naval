@@ -10,6 +10,7 @@ class TableroUsuario {
         this.matriz = this.crearMatriz();
         this.barcoManager=barcoManager
         this.barcosHundidosUsuario=0;
+        this.juegoIniciado = false; // Variable para controlar el estado del juego
         this.generarTablero();
         this.inicializarEventosDragAndDrop()
     }
@@ -24,17 +25,21 @@ class TableroUsuario {
         // Agregar eventos delegados al tablero
     inicializarEventosDragAndDrop(){
         this.tablero.addEventListener("dragover", (e) => {
-            if (e.target.classList.contains("celda")) {
+            if (e.target.classList.contains("celda")&& !this.juegoIniciado) {
                 e.preventDefault(); // Necesario para permitir el drop
             }
         });
 
         this.tablero.addEventListener("drop", (e) => {
-            if (e.target.classList.contains("celda")) {
+            if (e.target.classList.contains("celda")&& !this.juegoIniciado) {
                 this.barcoManager.colocarBarco(e, this);
             }
         });
     } 
+    iniciarJuego() {
+        this.juegoIniciado = true; // Cambia el estado del juego a iniciado
+        
+    }
     
 
     actualizarMatriz(fila, columna, longitud, orientacion, valor) {
