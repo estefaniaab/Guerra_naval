@@ -51,8 +51,8 @@ class TableroUsuario {
             return false;
     
         const direcciones = [
-            { df: 0, dc: 1 },  // Derecha
-            { df: 1, dc: 0 }   // Abajo
+            { df: 0, dc: 1 },  // Horizontal
+            { df: 1, dc: 0 }   // Vertical
         ];
     
         for (let { df, dc } of direcciones) {
@@ -91,7 +91,7 @@ class TableroUsuario {
                 console.log("¡Barco del usuario hundido!", this.barcosHundidosUsuario);
                 return true;
             }
-            return false;
+            
         }
     
         return false;
