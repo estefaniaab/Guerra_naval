@@ -314,8 +314,14 @@ class Juego {
         window.location.href = "ranking.html"
       }
     } else if (this.tableroUsuario.barcosHundidosUsuario === 6) {
-      alert("La máquina ha ganado, ¡intenta de nuevo!");
-      window.location.href = "login.html"
+      alert("La máquina ha ganado, ¡intenta de nuevo! Tu puntaje final es: " + this.usuario.score);
+      const usuarioBackend = this.usuario.toBackendFormat()
+      if (!puntajeUsuario(usuarioBackend)) {
+        alert("Problemas en el paraiso")
+      } else {
+        console.log("Todo nice");
+        window.location.href = "ranking.html"
+      }
     }
   }
 
