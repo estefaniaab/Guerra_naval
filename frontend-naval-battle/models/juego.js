@@ -50,7 +50,6 @@ class Juego {
             this.tableroMaquina.verificarBarcoHundido(fila,columna);
             this.usuario.addScore(10)
             this.verificarFinDelJuego();
-            this.registrarDisparo();
             alertaTurno("Usuario");
         } else {
           // Disparo fallido
