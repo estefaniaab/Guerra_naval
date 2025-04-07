@@ -137,6 +137,16 @@ export function alertaInfo(mensaje) {
     showConfirmButton: false
   });
 }
+export function alertaNewdisparo(mensaje) {
+  Swal.fire({
+    icon: 'info',
+    title: mensaje,
+    text: '',
+    backdrop: false,
+    timer: 2000,
+    showConfirmButton: false
+  });
+}
 
 export async function puntajeUsuario(usuarioBackend) {
   try {

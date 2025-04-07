@@ -1,5 +1,5 @@
 import TableroMaquina from "../models/tablero_maquina.js";
-import { puntajeUsuario } from "../utils/helpers.js";
+import { alertaInfo, alertaNewdisparo, puntajeUsuario } from "../utils/helpers.js";
 import { alertaTurno } from "../utils/helpers.js";
 
 
@@ -50,8 +50,15 @@ class Juego {
       console.log("Disparo Exitoso.");
       this.tableroMaquina.matriz[fila][columna] = "p2-h"; // Marca como acertado
       celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`; // Imagen de acierto
-      this.tableroMaquina.verificarBarcoHundido(fila, columna);
+      const hundido=this.tableroMaquina.verificarBarcoHundido(fila, columna);
       this.usuario.addScore(10);
+      if (!hundido) {
+        alertaNewdisparo("¡Acierto! Vuelve a disparar.");
+      } else {
+        alertaInfo("¡Barco hundido! Vuelve a disparar.");
+      }
+      //alertaTurno("Usuario")
+      //alertaInfo("!Vuelve a disparar!")
       this.verificarFinDelJuego();
   
     } else {
@@ -297,7 +304,8 @@ class Juego {
 
   verificarFinDelJuego() {
     if (this.tableroMaquina.barcosHundidosMaquina === 6) {
-      alert("¡Felicidades, ganaste!");
+      alert(`¡Felicidades, ganaste! Tu puntaje final es: ${this.usuario.score}`);
+      
       const usuarioBackend = this.usuario.toBackendFormat()
       if (!puntajeUsuario(usuarioBackend)) {
         alert("Problemas en el paraiso")
