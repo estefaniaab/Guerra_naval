@@ -56,6 +56,13 @@
     justify-content: center;
 }
 
+#botonExportar, #volver {
+    margin: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 12px;
+}
+
 
 
 .barco {
