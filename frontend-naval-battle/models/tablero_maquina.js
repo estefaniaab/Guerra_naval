@@ -1,4 +1,7 @@
 import { generarTableroGenerico } from "../utils/helpers.js";
+import { alertaInfo } from "../utils/helpers.js"
+
+
 class TableroMaquina{
     constructor(tamaño, id){
         this.tamaño=tamaño;
@@ -156,6 +159,7 @@ class TableroMaquina{
             // revisa si todas las celdas del barco han sido impactadas
             if (celdas.length > 1 && celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p2-h")) {
                 this.barcosHundidosMaquina += 1;
+                alertaInfo("¡Hundiste un barco de la máquina!");
                 console.log("¡Barco de la máquina hundido! Total:", this.barcosHundidosMaquina);
                 return true;
             }

@@ -127,6 +127,17 @@ export function alertaError(mensaje){
 });
 }
 
+export function alertaInfo(mensaje) {
+  Swal.fire({
+    icon: 'info',
+    title: '¡Barco Hundido!',
+    text: mensaje,
+    backdrop: false,
+    timer: 2000,
+    showConfirmButton: false
+  });
+}
+
 export async function puntajeUsuario(usuarioBackend) {
   try {
     const response = await fetch("http://127.0.0.1:5000/score-recorder", {

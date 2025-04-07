@@ -144,12 +144,18 @@ class Juego {
     if (val === "p1") { //si acierta cambiar el valor de la posicion por p1-h
       this.tableroUsuario.matriz[fila][columna] = "p1-h"
       celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
-      this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
+      
+      const hundido = this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
       this.ultimoAcierto = {fila, columna};
       this.direccionActual = this.direccionRandom();
       this.verificarFinDelJuego();
       
-      this.disparoMaquinaInteligente();
+      if (hundido) {
+        this.resetDireccion(); 
+        this.disparoRandom();
+      } else {
+        this.disparoMaquinaInteligente();
+      }
     } else { //si falla cambiar el valor de la posicion por b
       this.tableroUsuario.matriz[fila][columna] = "b"
       celda.innerHTML = `<img src="../../assets/agua.png" alt="Fallo" style="width: 100%; height: 100%;">`;
@@ -221,10 +227,15 @@ class Juego {
       this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "p1-h";
       celda.innerHTML = `<img src="../../assets/explosion.png" alt="Acierto" style="width: 100%; height: 100%;">`;
       this.ultimoAcierto = { fila: nuevaFila, columna: nuevaColumna };
-      this.tableroUsuario.verificarBarcoHundidoUsuario(fila, columna);
+      const hundido = this.tableroUsuario.verificarBarcoHundidoUsuario(nuevaFila, nuevaColumna);
       this.verificarFinDelJuego();
       
-      setTimeout(() => this.disparoMaquinaInteligente(), 1000);
+      if (hundido) {
+        this.resetDireccion(); // Opcional: reinicia dirección si hunde
+        this.disparoRandom();
+      } else {
+        this.disparoMaquinaInteligente();
+      }
     } else if (val === "a") { //si encuentra agua para el seguimiento de la direccion
       
       this.tableroUsuario.matriz[nuevaFila][nuevaColumna] = "b";

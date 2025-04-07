@@ -1,5 +1,7 @@
 import BarcoManager from "../models/barcoManager.js";
 import { generarTableroGenerico } from "../utils/helpers.js";
+import { alertaInfo } from "../utils/helpers.js"
+
 class TableroUsuario {
     constructor(tamaño, id, barcoManager) {
         this.id=id
@@ -85,9 +87,11 @@ class TableroUsuario {
             // verifica si todas las celdas del barco están heridas
             if (celdas.length > 1 && celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p1-h")) {
                 this.barcosHundidosUsuario += 1;
+                alertaInfo("¡Hundiste un barco de la máquina!");
                 console.log("¡Barco del usuario hundido!", this.barcosHundidosUsuario);
                 return true;
             }
+            return false;
         }
     
         return false;
