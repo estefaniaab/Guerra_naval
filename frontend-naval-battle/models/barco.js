@@ -39,6 +39,9 @@ class Barco {
     onDragStart(event) {
         event.dataTransfer.setData("text/plain", JSON.stringify({ id: this.id, orientacion:this.orientacion}));
     }
+    deshabilitarArrastre() {
+        this.elemento.setAttribute('draggable', 'false');
+    }
 
     rotar(event) {
         if (event) event.stopPropagation();
