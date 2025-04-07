@@ -87,7 +87,7 @@ class TableroUsuario {
             // verifica si todas las celdas del barco están heridas
             if (celdas.length > 1 && celdas.every(({ fila, columna }) => this.matriz[fila][columna] === "p1-h")) {
                 this.barcosHundidosUsuario += 1;
-                alertaInfo("¡Hundiste un barco de la máquina!");
+                alertaInfo("¡Hundiste un barco del usuario!");
                 console.log("¡Barco del usuario hundido!", this.barcosHundidosUsuario);
                 return true;
             }

@@ -12,7 +12,7 @@ class Juego {
     this.tamaño = tamaño;
 
     this.ultimoAcierto = null;
-    this.direccionActual = null;
+    this.direccionActual = null; 
     this.direcciones = [
       { df: 0, dc: 1}, //Derecha
       { df: 0, dc: -1}, //Izquierda
@@ -244,6 +244,8 @@ class Juego {
       alertaTurno("Usuario");
       this.turnoUsuario = true;
     } else if (val === "p1-h") {
+      this.disparoRandom();
+    } else if (val === "b") {
       this.disparoRandom();
     } else {
       this.resetDireccion();
